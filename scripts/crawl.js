@@ -214,55 +214,95 @@ async function fetchCategoryMembers(categoryTitle, limit = MAX_ARTICLES_PER_CAT)
   return (data.query?.categorymembers || []).map((p) => p.title);
 }
 
+/**
+ * Fetch a single article's content (used for reliability, single items).
+ */
 async function fetchArticle(title) {
+  const batchResult = await fetchArticlesBatch([title]);
+  return batchResult[0] || null;
+}
+
+/**
+ * Batch-fetch up to 20 articles at once (extracts API limit).
+ * Returns array of article objects (nulls filtered out).
+ */
+async function fetchArticlesBatch(titles) {
+  if (titles.length === 0) return [];
   const data = await wikiGet({
     action: "query",
     prop: "extracts|info|categories",
-    titles: title,
+    titles: titles.join("|"),
     redirects: "1",
     explaintext: "1",
     exsectionformat: "plain",
     inprop: "url",
-    cllimit: "30",
+    cllimit: "20",
     clshow: "!hidden",
+    exintro: "1",  // Just intro paragraph for speed
   });
+
   const pages = Object.values(data.query?.pages || {});
-  const page = pages[0];
-  if (!page || page.missing !== undefined) return null;
+  const results = [];
 
-  const categories = (page.categories || [])
-    .map((c) => c.title.replace(/^Category:/, ""))
-    .filter(
-      (c) =>
-        !/Wikipedia|Articles|Pages|CS1|Use |All |Good |Featured |Accuracy/.test(c)
+  for (const page of pages) {
+    if (!page || page.missing !== undefined) continue;
+
+    const categories = (page.categories || [])
+      .map((c) => c.title.replace(/^Category:/, ""))
+      .filter(
+        (c) =>
+          !/Wikipedia|Articles|Pages|CS1|Use |All |Good |Featured |Accuracy/.test(c)
+      );
+
+    // Biographical heuristic: if multiple bio categories, skip
+    const bioIndicators = categories.filter((c) =>
+      /\d{4} birth|\d{4} death|People from|alumni|Mathematicians from/.test(c)
     );
+    if (bioIndicators.length >= 2) continue;
 
-  // Biographical heuristic: if most categories are about people, skip
-  const bioIndicators = categories.filter((c) =>
-    /\d{4} birth|\d{4} death|People from|alumni|Mathematicians from/.test(c)
-  );
-  if (bioIndicators.length >= 2) return null;
+    results.push({
+      id: titleToId(page.title),
+      title: page.title,
+      extract: (page.extract || "").slice(0, MAX_EXTRACT_CHARS),
+      url: page.fullurl || `https://en.wikipedia.org/wiki/${encodeURIComponent(page.title)}`,
+      categories,
+    });
+  }
 
-  return {
-    id: titleToId(page.title),
-    title: page.title,
-    extract: (page.extract || "").slice(0, MAX_EXTRACT_CHARS),
-    url: page.fullurl || `https://en.wikipedia.org/wiki/${encodeURIComponent(page.title)}`,
-    categories,
-  };
+  return results;
 }
 
-async function fetchOutlinks(title) {
+/**
+ * Batch-fetch outlinks for up to 50 articles at once.
+ * Returns { title: [outlink titles] }
+ */
+async function fetchOutlinksBatch(titles) {
+  if (titles.length === 0) return {};
   const data = await wikiGet({
     action: "query",
     prop: "links",
-    titles: title,
-    pllimit: "500",
+    titles: titles.join("|"),
+    pllimit: "300",
     plnamespace: "0",
     redirects: "1",
   });
+  const result = {};
+  // Initialize all requested titles (even if no results returned)
+  titles.forEach((t) => { result[t] = []; });
   const pages = Object.values(data.query?.pages || {});
-  return (pages[0]?.links || []).map((l) => l.title);
+  for (const page of pages) {
+    if (page.title) {
+      result[page.title] = (page.links || []).map((l) => l.title);
+    }
+  }
+  // Handle redirects: map redirected-from titles
+  const redirects = data.query?.redirects || [];
+  for (const r of redirects) {
+    if (result[r.to] && !result[r.from]) {
+      result[r.from] = result[r.to];
+    }
+  }
+  return result;
 }
 
 // ── Batched fetch with rate limiting ─────────────────────────────────────────
@@ -325,34 +365,55 @@ async function main() {
 
   console.log(`\n  Total candidate articles: ${allCandidates.length}`);
 
-  // ── Phase 3: Fetch full article data ────────────────────────────────────────
+  // ── Phase 3: Fetch full article data (batched 20 articles/request) ───────────
   console.log("\nPhase 3: Fetching article content...");
-  const articleResults = await batchFetch(
-    allCandidates.slice(0, MAX_TOTAL_NODES),
-    fetchArticle,
-    1,
-    "Articles"
-  );
+  const candidateSlice = allCandidates.slice(0, MAX_TOTAL_NODES);
+  const ARTICLE_BATCH = 20;
+  const articleResults = [];
+  let artBatchNum = 0;
+  const totalArtBatches = Math.ceil(candidateSlice.length / ARTICLE_BATCH);
+
+  for (let i = 0; i < candidateSlice.length; i += ARTICLE_BATCH) {
+    const batch = candidateSlice.slice(i, i + ARTICLE_BATCH);
+    artBatchNum++;
+    process.stdout.write(`\r  Article batch: ${artBatchNum}/${totalArtBatches}  `);
+    try {
+      const batchResult = await fetchArticlesBatch(batch);
+      articleResults.push(...batchResult);
+    } catch (err) {
+      console.warn(`\n  Batch ${artBatchNum} failed: ${err.message}`);
+    }
+    if (i + ARTICLE_BATCH < candidateSlice.length) await sleep(DELAY_MS);
+  }
+  console.log();
 
   const articles = articleResults
-    .filter(Boolean)
     .map((a) => ({ ...a, mathDomain: articleDomainMap[a.title] || "Mathematics" }));
 
   console.log(`  Fetched ${articles.length} valid articles`);
 
-  // ── Phase 4: Fetch outlinks for edge building ────────────────────────────────
+  // ── Phase 4: Fetch outlinks for edge building (batched 50 articles/request) ───
   console.log("\nPhase 4: Fetching outlinks for edge construction...");
-  const outlinksResults = await batchFetch(
-    articles.map((a) => a.title),
-    fetchOutlinks,
-    1,
-    "Outlinks"
-  );
-
+  const articleTitles = articles.map((a) => a.title);
+  const OUTLINK_BATCH = 50;
   const articleOutlinks = {};
-  articles.forEach((a, i) => {
-    articleOutlinks[a.title] = outlinksResults[i] || [];
-  });
+  let batchNum = 0;
+  const totalBatches = Math.ceil(articleTitles.length / OUTLINK_BATCH);
+
+  for (let i = 0; i < articleTitles.length; i += OUTLINK_BATCH) {
+    const batch = articleTitles.slice(i, i + OUTLINK_BATCH);
+    batchNum++;
+    process.stdout.write(`\r  Outlinks batch: ${batchNum}/${totalBatches}  `);
+    try {
+      const batchResult = await fetchOutlinksBatch(batch);
+      Object.assign(articleOutlinks, batchResult);
+    } catch (err) {
+      console.warn(`\n  Batch ${batchNum} failed: ${err.message}, using empty outlinks`);
+      batch.forEach((t) => { articleOutlinks[t] = []; });
+    }
+    if (i + OUTLINK_BATCH < articleTitles.length) await sleep(DELAY_MS);
+  }
+  console.log();
 
   // ── Phase 5: Build edge graph ────────────────────────────────────────────────
   console.log("\nPhase 5: Building edge graph...");

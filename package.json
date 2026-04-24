@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "crawl": "node scripts/crawl.js"
+    "crawl": "node scripts/crawl.js",
+    "quickstart": "node scripts/quickstart.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.35.0",
