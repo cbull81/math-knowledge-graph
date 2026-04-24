@@ -182,11 +182,13 @@ async function fetchArticlesBatch(titles) {
 }
 
 async function fetchOutlinksBatch(titles) {
+  // pllimit is global per API call, not per article.
+  // Use max (500) — with small batches of 5-10 this gives ~50-100 links/article.
   const data = await wikiGet({
     action: "query",
     prop: "links",
     titles: titles.join("|"),
-    pllimit: "300",
+    pllimit: "max",
     plnamespace: "0",
     redirects: "1",
   });
@@ -233,8 +235,8 @@ async function main() {
     mathDomain: domainMap[a.title] || "Mathematics",
   }));
 
-  // ── Phase 2: Fetch outlinks (50 per batch) ───────────────────────────────────
-  const OUTLINK_BATCH = 50;
+  // ── Phase 2: Fetch outlinks (5 per batch — pllimit is global per request) ────
+  const OUTLINK_BATCH = 5;
   const articleOutlinks = {};
 
   for (let i = 0; i < articles.length; i += OUTLINK_BATCH) {

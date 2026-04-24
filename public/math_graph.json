@@ -1,11 +1,1775 @@
 {
   "meta": {
-    "crawledAt": "2026-04-24T16:26:48.910Z",
-    "nodeCount": 0,
-    "edgeCount": 0,
-    "domains": [],
+    "crawledAt": "2026-04-24T18:48:04.669Z",
+    "nodeCount": 58,
+    "edgeCount": 310,
+    "domains": [
+      "Abstract algebra",
+      "Algebraic geometry",
+      "Algebraic topology",
+      "Analytic number theory",
+      "Category theory",
+      "Combinatorics",
+      "Commutative algebra",
+      "Complex analysis",
+      "Computability theory",
+      "Differential equations",
+      "Differential geometry",
+      "Dynamical systems",
+      "Functional analysis",
+      "General topology",
+      "Graph theory",
+      "Homological algebra",
+      "Information theory",
+      "Linear algebra",
+      "Mathematical logic",
+      "Mathematical statistics",
+      "Mathematics",
+      "Number theory",
+      "Numerical analysis",
+      "Probability theory",
+      "Real analysis",
+      "Representation theory",
+      "Set theory"
+    ],
     "note": "Quick-start dataset (curated). Run `npm run crawl` for the full graph."
   },
-  "nodes": [],
-  "edges": []
+  "nodes": [
+    {
+      "id": "Banach_space",
+      "title": "Banach space",
+      "extract": "In mathematics, more specifically in functional analysis, a Banach space (, Polish pronunciation: [ˈba.nax]) is a complete normed vector space. Thus, a Banach space is a vector space with a metric that allows the computation of vector length and distance between vectors and is complete in the sense that a Cauchy sequence of vectors always converges to a well-defined limit that is within the space.\nBanach spaces are named after the Polish mathematician Stefan Banach, who introduced this concept and studied it systematically in 1920–1922 along with Hans Hahn and Eduard Helly. \nMaurice René Fréchet was the first to use the term \"Banach space\" and Banach in turn then coined the term \"Fréchet space\".\nBanach spaces originally grew out of the study of function spaces by Hilbert, Fréchet, and Riesz earlier in the century. Banach spaces play a central role in functional analysis. In other areas of analysis, the spaces under study are often Banach spaces.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Banach_space",
+      "categories": [
+        "Banach spaces",
+        "Functional analysis",
+        "Normed spaces",
+        "Science and technology in Poland",
+        "Topological vector spaces"
+      ],
+      "mathDomain": "Functional analysis"
+    },
+    {
+      "id": "Complex_analysis",
+      "title": "Complex analysis",
+      "extract": "Complex analysis, traditionally known as the theory of functions of a complex variable, is the branch of mathematical analysis that investigates functions of a complex variable of complex numbers. It is helpful in many branches of mathematics, including real analysis, algebraic geometry, number theory, analytic combinatorics, and applied mathematics, as well as in physics, including the branches of hydrodynamics, thermodynamics, quantum mechanics, and twistor theory. By extension, use of complex analysis also has applications in engineering fields such as nuclear, aerospace, mechanical and electrical engineering.\nAt first glance, complex analysis is the study of holomorphic functions that are the  differentiable functions of a complex variable. By contrast with the real case, a holomorphic function is always infinitely differentiable and equal to the sum of its Taylor series in some neighborhood of each point of its domain.\nThis makes methods and results of complex analysis significantly different from that of real analysis. The study of real analytic functions often needs the power of complex analysis. This is, in particular, the case in analytic combinatorics.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Complex_analysis",
+      "categories": [
+        "Complex analysis",
+        "Complex numbers"
+      ],
+      "mathDomain": "Complex analysis"
+    },
+    {
+      "id": "Continuous_function",
+      "title": "Continuous function",
+      "extract": "In mathematics, a continuous function is a function such that a small variation of the argument induces a small variation of the value of the function. This implies there are no abrupt changes in value, known as discontinuities. More precisely, a function is continuous if arbitrarily small changes in its value can be assured by restricting to sufficiently small changes of its argument. A discontinuous function is a function that is not continuous. Until the 19th century, mathematicians largely relied on intuitive notions of continuity and considered only continuous functions. The epsilon–delta definition of a limit was introduced to formalize the definition of continuity.\nContinuity is one of the core concepts of calculus and mathematical analysis, where arguments and values of functions are real and complex numbers. The concept has been generalized to functions between metric spaces and between topological spaces. The latter are the most general continuous functions, and their definition is the basis of topology.\nA stronger form of continuity is uniform continuity. In order theory, especially in domain theory, a related concept of continuity is Scott continuity.\nAs an example, the function H(t) denoting the height of a growing flower at time t would be considered continuous. In contrast, the function M(t) denoting the amount of money in a bank account at time t would be considered discontinuous since it \"jumps\" at each point in time when money is deposited or withdrawn.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Continuous_function",
+      "categories": [],
+      "mathDomain": "Real analysis"
+    },
+    {
+      "id": "Derivative",
+      "title": "Derivative",
+      "extract": "In mathematics, the derivative is a fundamental tool that quantifies the sensitivity to change of a function's output with respect to its input. The derivative of a function of a single variable at a chosen input value, when it exists, is the slope of the tangent line to the graph of the function at that point. The tangent line is the best linear approximation of the function near that input value. The derivative is often described as the instantaneous rate of change, the ratio of the instantaneous change in the dependent variable to that of the independent variable. The process of finding a derivative is called differentiation.\nThere are multiple different notations for differentiation. Leibniz notation, named after Gottfried Wilhelm Leibniz, is represented as the ratio of two differentials, whereas prime notation is written by adding a prime mark. Higher order notations represent repeated differentiation, and they are usually denoted in Leibniz notation by adding superscripts to the differentials, and in prime notation by adding additional prime marks. Higher order derivatives are used in physics; for example, the first derivative  with respect to time of the position of a moving object is its velocity, and the second derivative is its acceleration.\nDerivatives can be generalized to functions of several real variables. In this case, the derivative is reinterpreted as a linear transformation whose graph is (after an appropriate translation) the best linear approximation to the graph of the original function. The Jacobian matrix is the matrix that represents this linear transformation with respect to the basis given by the choice of independent and dependent variables.  It can be calculated in terms of the partial derivatives with respect to the independent variables.  For a real-valued function of several variables, the Jacobian matrix reduces to the gradient vector.",
+      "url": "https://en.wikipedia.org/wiki/Derivative",
+      "categories": [],
+      "mathDomain": "Mathematics"
+    },
+    {
+      "id": "Field_(mathematics)",
+      "title": "Field (mathematics)",
+      "extract": "In mathematics, a field is a set on which addition, subtraction, multiplication, and division are defined and behave as the corresponding operations on rational numbers do. A field is thus a fundamental algebraic structure that is widely used in algebra, number theory, and many other areas of mathematics.\nThe best known fields are the field of rational numbers, the field of real numbers, and the field of complex numbers. Many other fields, such as fields of rational functions, algebraic function fields, algebraic number fields, finite fields, and p-adic fields are commonly used and studied in mathematics, particularly in number theory and algebraic geometry.\nThe theory of fields proves that angle trisection and squaring the circle cannot be done with a compass and straightedge alone. Galois theory, devoted to understanding the symmetries of field extensions, provides an elegant proof of the Abel–Ruffini theorem that general quintic equations cannot be solved in radicals.\nFields serve as foundational notions in several mathematical domains. This includes different branches of mathematical analysis, which are based on fields with additional structure. Basic theorems in analysis hinge on the structural properties of the field of real numbers. Most importantly for algebraic purposes, any field may be used as the scalars for a vector space, which is the standard general context for linear algebra. Number fields, the siblings of the field of rational numbers, are studied in depth in number theory. Function fields can help describe properties of geometric objects. Finite fields are used for error correction codes and cryptography.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Field_(mathematics)",
+      "categories": [],
+      "mathDomain": "Abstract algebra"
+    },
+    {
+      "id": "Functional_analysis",
+      "title": "Functional analysis",
+      "extract": "Functional analysis is a branch of mathematical analysis, the core of which is formed by the study of vector spaces endowed with some kind of limit-related structure (for example, inner product, norm, or topology) and the linear functions defined on these spaces and suitably respecting these structures. The historical roots of functional analysis lie in the study of spaces of functions and the formulation of properties of transformations of functions such as the Fourier transform as transformations defining, for example, continuous or unitary operators between function spaces. This point of view turned out to be particularly useful for the study of differential and integral equations.\nThe usage of the word functional as a noun goes back to the calculus of variations, implying a function whose argument is a function. The term was first used in Hadamard's 1910 book on that subject. However, the general concept of a functional had previously been introduced in 1887 by the Italian mathematician and physicist Vito Volterra. The theory of nonlinear functionals was continued by students of Hadamard, in particular Fréchet and Lévy. Hadamard also founded the modern school of linear functional analysis further developed by Riesz and the group of Polish mathematicians around Stefan Banach.\nIn modern introductory texts on functional analysis, the subject is seen as the study of vector spaces endowed with a topology, in particular infinite-dimensional spaces. In contrast, linear algebra deals mostly with finite-dimensional spaces, and does not use topology. An important part of functional analysis is the extension of the theories of measure, integration, and probability to infinite-dimensional spaces, also known as infinite dimensional analysis.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Functional_analysis",
+      "categories": [],
+      "mathDomain": "Functional analysis"
+    },
+    {
+      "id": "Holomorphic_function",
+      "title": "Holomorphic function",
+      "extract": "In mathematics, a holomorphic function is a complex-valued function of one or more complex variables that is complex differentiable in a neighbourhood of each point in a domain in complex coordinate space ⁠\n  \n    \n      \n        \n          \n            C\n          \n          \n            n\n          \n        \n      \n    \n    {\\displaystyle \\mathbb {C} ^{n}}\n  \n⁠. The existence of a complex derivative in a neighbourhood is a very strong condition: It implies that a holomorphic function is infinitely differentiable and locally equal to its own Taylor series (is analytic). Holomorphic functions are the central objects of study in complex analysis.\nThough the term analytic function is often used interchangeably with \"holomorphic function\", the word \"analytic\" is defined in a broader sense to denote any function (real, complex, or of more general type) that can be written as a convergent power series in a neighbourhood of each point in its domain. That all holomorphic functions are complex analytic functions, and vice versa, is a major theorem in complex analysis.\nHolomorphic functions are also sometimes referred to as regular functions. A holomorphic function whose domain is the whole complex plane is called an entire function. The phrase \"holomorphic at a point ⁠\n  \n    \n      \n        \n          z\n          \n            0\n          \n        \n      \n    \n    {\\displaystyle z_{0}}\n  \n⁠\" means not just differentiable at ⁠\n  \n    \n      \n        \n          z\n          \n            0\n          \n        \n      \n    \n    {\\displaystyle z_{0}}\n  \n⁠, but differentiable everywhere within some close neighbourhood of ⁠\n  \n    \n      \n        \n          z\n          \n            0\n          \n        \n      \n    \n    {\\displaystyle z_{0}}\n  \n⁠ in the complex plane.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Holomorphic_function",
+      "categories": [],
+      "mathDomain": "Complex analysis"
+    },
+    {
+      "id": "Inner_product_space",
+      "title": "Inner product space",
+      "extract": "In mathematics, an inner product space is a real or complex vector space endowed with an operation called an inner product.  The inner product of two vectors in the space is a scalar, often denoted with angle brackets such as in \n  \n    \n      \n        ⟨\n        a\n        ,\n        b\n        ⟩\n      \n    \n    {\\displaystyle \\langle a,b\\rangle }\n  \n. Inner products allow formal definitions of intuitive geometric notions, such as lengths, angles, and orthogonality (zero inner product) of vectors. Inner product spaces generalize Euclidean vector spaces, in which the inner product is the dot product or scalar product of Cartesian coordinates. Inner product spaces of infinite dimensions are widely used in functional analysis. Inner product spaces over the field of complex numbers are sometimes referred to as unitary spaces. The first usage of the concept of a vector space with an inner product is due to Giuseppe Peano, in 1898.\nAn inner product naturally induces an associated norm, (denoted \n  \n    \n      \n        \n          |\n        \n        x\n        \n          |\n        \n      \n    \n    {\\displaystyle |x|}\n  \n and \n  \n    \n      \n        \n          |\n        \n        y\n        \n          |\n        \n      \n    \n    {\\displaystyle |y|}\n  \n in the picture); so, every inner product space is a normed vector space. If this normed space is also complete (that is, a Banach space) then the inner product space is a Hilbert space. If an inner product space H is not a Hilbert space, it can be extended by completion to a Hilbert space \n  \n    \n      \n        \n          \n            H\n            ¯\n          \n        \n        .\n      \n    \n    {\\displaystyle {\\overline {H}}.}\n  \n This means that \n  \n    \n      \n        H\n      \n    \n    {\\displaystyle H}\n  \n is a linear subspace of \n  \n    \n      \n        \n          \n            H\n            ¯\n          \n        \n        ,\n      \n    \n    {\\displaystyle {\\overline {H}},}\n  \n the inner product of \n  \n    \n      \n        H\n      \n    \n    {\\displaystyle H}\n  \n is the restriction of that of \n  \n    \n      \n        \n          \n            H\n            ¯\n          \n        \n        ,\n      \n    \n    {\\displaystyle {\\overline {H}},}\n  \n and \n  \n    \n      \n        H\n      \n    \n    {\\displaystyle H}\n  \n is dense in \n  \n    \n      \n        \n          \n            H\n            ¯\n          \n        \n      \n    \n    {\\displaystyle {\\overline {H}}}\n  \n for the topology defined by the norm.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Inner_product_space",
+      "categories": [],
+      "mathDomain": "Linear algebra"
+    },
+    {
+      "id": "Linear_algebra",
+      "title": "Linear algebra",
+      "extract": "Linear algebra is the branch of mathematics concerning linear equations such as\n\n  \n    \n      \n        \n          a\n          \n            1\n          \n        \n        \n          x\n          \n            1\n          \n        \n        +\n        ⋯\n        +\n        \n          a\n          \n            n\n          \n        \n        \n          x\n          \n            n\n          \n        \n        =\n        b\n        ,\n      \n    \n    {\\displaystyle a_{1}x_{1}+\\cdots +a_{n}x_{n}=b,}\n  \n\nlinear maps such as\n\n  \n    \n      \n        (\n        \n          x\n          \n            1\n          \n        \n        ,\n        …\n        ,\n        \n          x\n          \n            n\n          \n        \n        )\n        ↦\n        \n          a\n          \n            1\n          \n        \n        \n          x\n          \n            1\n          \n        \n        +\n        ⋯\n        +\n        \n          a\n          \n            n\n          \n        \n        \n          x\n          \n            n\n          \n        \n        ,\n      \n    \n    {\\displaystyle (x_{1},\\ldots ,x_{n})\\mapsto a_{1}x_{1}+\\cdots +a_{n}x_{n},}\n  \n\nand their representations in vector spaces and through matrices.\n\nLinear algebra is central to almost all areas of mathematics. For instance, linear algebra is fundamental in modern presentations of geometry, including for defining basic objects such as lines, planes and rotations. Also, functional analysis, a branch of mathematical analysis, may be viewed as the application of linear algebra to function spaces.\nLinear algebra is also used in most sciences and fields of engineering because it allows modeling many natural phenomena, and computing efficiently with such models. For nonlinear systems, which cannot be modeled with linear algebra, it is often used for dealing with first-order approximations, using the fact that the differential of a multivariate function at a point is the linear map that best approximates the function near that point.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Linear_algebra",
+      "categories": [],
+      "mathDomain": "Linear algebra"
+    },
+    {
+      "id": "Metric_space",
+      "title": "Metric space",
+      "extract": "In mathematics, a metric space is a set together with a notion of distance between its points. The distance is measured by a function called a metric or distance function. Metric spaces are a general setting for studying many of the concepts of mathematical analysis and geometry.\nThe most familiar example of a metric space is 3-dimensional Euclidean space with its usual notion of distance. Other well-known examples are a sphere equipped with the angular distance and the hyperbolic plane. A metric may correspond to a metaphorical, rather than physical, notion of distance. For example, the set of 100-character Unicode strings can be equipped with the Hamming distance, which measures the number of characters that need to be changed to get from one string to another.\nMetric spaces appear in many different branches of mathematics. For example, Riemannian manifolds, normed vector spaces, and graphs may be viewed as metric spaces. In abstract algebra, the field of p-adic numbers is the completion of the field of rational numbers with respect to a certain metric. Metric spaces are also studied in their own right in metric geometry and analysis on metric spaces.\nMany notions of analysis, including balls, completeness, as well as uniform, Lipschitz, and Hölder continuity can be defined for metric spaces. Other notions, such as continuity, compactness, and open and closed sets can be defined for metric spaces, but also in the even more general setting of topological spaces.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Metric_space",
+      "categories": [],
+      "mathDomain": "Real analysis"
+    },
+    {
+      "id": "Real_analysis",
+      "title": "Real analysis",
+      "extract": "In mathematics, real analysis is the part of mathematical analysis that studies real numbers, sequences and series of real numbers, and real functions. The basic concepts of real analysis include  convergence, limits, continuity, differentiability, smoothness, analyticity and integrability.\nReal analysis is distinguished from complex analysis, which deals with the study of complex numbers and their functions.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Real_analysis",
+      "categories": [],
+      "mathDomain": "Real analysis"
+    },
+    {
+      "id": "Vector_space",
+      "title": "Vector space",
+      "extract": "In mathematics, a vector space (also called a linear space) is a set whose elements, often called vectors, can be added together and multiplied (\"scaled\") by numbers called scalars. The operations of vector addition and scalar multiplication must satisfy certain requirements, called vector axioms. Real vector spaces and complex vector spaces are kinds of vector spaces based on different kinds of scalars: real numbers and complex numbers. Scalars can also be, more generally, elements of any field.\nVector spaces generalize Euclidean vectors, which allow modeling of physical quantities (such as forces and velocity) that have not only a magnitude, but also a direction. The concept of vector spaces is fundamental for linear algebra, together with the concept of matrices, which allows computing in vector spaces. This provides a concise and synthetic way for manipulating and studying systems of linear equations.\nVector spaces are characterized by their dimension, which, roughly speaking, specifies the number of independent directions in the space. This means that for two vector spaces over a given field and with the same dimension, the properties that depend only on the vector-space structure are exactly the same (technically, the vector spaces are isomorphic). A vector space is finite-dimensional if its dimension is a natural number. Otherwise, it is infinite-dimensional, and its dimension is an infinite cardinal. Finite-dimensional vector spaces occur naturally in geometry and related areas. Infinite-dimensional vector spaces occur in many areas of mathematics. For example, polynomial rings are countably infinite-dimensional vector spaces, and many function spaces have the cardinality of the continuum as a dimension.\nMany vector spaces that are considered in mathematics are also endowed with other structures. This is the case of algebras, which include field extensions, polynomial rings, associative algebras and Lie algebras. This is also the case of topological vector spaces, which include function spaces, inner product spaces, normed spaces, Hilbert spaces and Banach spaces.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Vector_space",
+      "categories": [],
+      "mathDomain": "Linear algebra"
+    },
+    {
+      "id": "Group_theory",
+      "title": "Group theory",
+      "extract": "In abstract algebra, group theory studies the algebraic structures known as groups.  \nThe concept of a group is central to abstract algebra: other well-known algebraic structures, such as rings, fields, and vector spaces, can all be seen as groups endowed with additional operations and axioms. Groups recur throughout mathematics, and the methods of group theory have influenced many parts of algebra. Linear algebraic groups and Lie groups are two branches of group theory that have experienced advances and have become subject areas in their own right.\nVarious physical systems, such as crystals and the hydrogen atom, and three of the four known fundamental forces in the universe, may be modelled by symmetry groups. Thus group theory and the closely related representation theory have many important applications in physics, chemistry, and materials science. Group theory is also central to public key cryptography.\nThe early history of group theory dates from the 19th century. One of the most important mathematical achievements of the 20th century was the collaborative effort, taking up more than 10,000 journal pages and mostly published between 1960 and 2004, that culminated in a complete classification of finite simple groups.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Group_theory",
+      "categories": [],
+      "mathDomain": "Abstract algebra"
+    },
+    {
+      "id": "Riemann_surface",
+      "title": "Riemann surface",
+      "extract": "In mathematics, particularly in complex analysis, a Riemann surface is a connected one-dimensional complex manifold.  These surfaces were first studied by and are named after Bernhard Riemann. Riemann surfaces can be thought of as deformed versions of the complex plane: locally near every point they look like patches of the complex plane, but the global topology can be quite different. For example, they can look like a sphere or a torus or several sheets glued together.\nExamples of Riemann surfaces include graphs of multivalued functions such as √z or log(z), e.g. the subset of pairs (z, w) ∈ C2 with w = log(z). \nEvery Riemann surface is a surface: a two-dimensional real manifold, but it contains more structure (specifically a complex structure). Conversely, a two-dimensional real manifold can be turned into a Riemann surface (usually in several inequivalent ways) if and only if it is orientable and metrizable. Given this, the sphere and torus admit complex structures but the Möbius strip, Klein bottle and real projective plane do not.  Every compact Riemann surface is a complex algebraic curve by Chow's theorem and the Riemann–Roch theorem.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Riemann_surface",
+      "categories": [],
+      "mathDomain": "Complex analysis"
+    },
+    {
+      "id": "Ring_theory",
+      "title": "Ring theory",
+      "extract": "In algebra, ring theory is the study of rings, algebraic structures in which addition and multiplication are defined and have similar properties to those operations defined for the integers. Ring theory studies the structure of rings; their representations, or, in different language, modules; special classes of rings (group rings, division rings, universal enveloping algebras); related structures like rngs; as well as an array of properties that prove to be of interest both within the theory itself and for its applications, such as homological properties and polynomial identities.\nCommutative rings are much better understood than noncommutative ones. Algebraic geometry and algebraic number theory, which provide many natural examples of commutative rings, have driven much of the development of commutative ring theory, which is now, under the name of commutative algebra, a major area of modern mathematics. Because these three fields (algebraic geometry, algebraic number theory and commutative algebra) are so intimately connected it is usually difficult and meaningless to decide which field a particular result belongs to. For example, Hilbert's Nullstellensatz is a theorem which is fundamental for algebraic geometry, and is stated and proved in terms of commutative algebra. Similarly, Fermat's Last Theorem is stated in terms of elementary arithmetic, which is a part of commutative algebra, but its proof involves deep results of both algebraic number theory and algebraic geometry.\nNoncommutative rings are quite different in flavour, since more unusual behavior can arise. While the theory has developed in its own right, a fairly recent trend has sought to parallel the commutative development by building the theory of certain classes of noncommutative rings in a geometric fashion as if they were rings of functions on (non-existent) 'noncommutative spaces'. This trend started in the 1980s with the development of noncommutative geometry and with the discovery of quantum groups. It has led to a better understanding of noncommutative rings, especially noncommutative Noetherian rings.\nFor the definitions of a ring and basic concepts and their properties, see Ring (mathematics). The definitions of terms used throughout ring theory may be found in Glossary of ring theory.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Ring_theory",
+      "categories": [],
+      "mathDomain": "Abstract algebra"
+    },
+    {
+      "id": "Module_(mathematics)",
+      "title": "Module (mathematics)",
+      "extract": "In mathematics, a module is a generalization of the notion of vector space in which the field of scalars is replaced by a (not necessarily commutative) ring. The concept of a module also generalizes the notion of an abelian group, since the abelian groups are exactly the modules over the ring of integers.\nLike a vector space, a module is an additive abelian group, and scalar multiplication is distributive over the operations of addition between elements of the ring or module and is compatible with the ring multiplication.\nModules are very closely related to the representation theory of groups. They are also one of the central notions of commutative algebra and homological algebra, and are used widely in algebraic geometry and algebraic topology.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Module_(mathematics)",
+      "categories": [],
+      "mathDomain": "Abstract algebra"
+    },
+    {
+      "id": "Eigenvalues_and_eigenvectors",
+      "title": "Eigenvalues and eigenvectors",
+      "extract": "In linear algebra, an eigenvector ( EYE-gən-) or characteristic vector is a (nonzero) vector that has its direction unchanged (or reversed) by a given linear transformation. More precisely, an eigenvector \n  \n    \n      \n        \n          v\n        \n      \n    \n    {\\displaystyle \\mathbf {v} }\n  \n of a linear transformation \n  \n    \n      \n        T\n      \n    \n    {\\displaystyle T}\n  \n is scaled by a constant factor \n  \n    \n      \n        λ\n      \n    \n    {\\displaystyle \\lambda }\n  \n when the linear transformation is applied to it: \n  \n    \n      \n        T\n        \n          v\n        \n        =\n        λ\n        \n          v\n        \n      \n    \n    {\\displaystyle T\\mathbf {v} =\\lambda \\mathbf {v} }\n  \n. The corresponding eigenvalue, characteristic value, or characteristic root is the multiplying factor \n  \n    \n      \n        λ\n      \n    \n    {\\displaystyle \\lambda }\n  \n (possibly a negative or complex number).\nGeometrically, vectors are multi-dimensional quantities with magnitude and direction, often pictured as arrows. A linear transformation rotates, stretches, or shears the vectors upon which it acts. A linear transformation's eigenvectors are those vectors that are only stretched or shrunk, with neither rotation nor shear. The corresponding eigenvalue is the factor by which an eigenvector is stretched or shrunk. If the eigenvalue is negative, the eigenvector's direction is reversed.\nThe eigenvectors and eigenvalues of a linear transformation serve to characterize it, and so they play important roles in all areas where linear algebra is applied, from geology to quantum mechanics. In particular, it is often the case that a system is represented by a linear transformation whose outputs are fed as inputs to the same transformation (feedback). In such an application, the largest eigenvalue is of particular importance, because it governs the long-term behavior of the system after many applications of the linear transformation, and the associated eigenvector is the steady state of the system.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Eigenvalues_and_eigenvectors",
+      "categories": [],
+      "mathDomain": "Linear algebra"
+    },
+    {
+      "id": "Matrix_(mathematics)",
+      "title": "Matrix (mathematics)",
+      "extract": "In mathematics, a matrix (pl.: matrices) is a rectangular array of numbers or other mathematical objects with elements or entries arranged in rows and columns, usually satisfying certain properties of addition and multiplication. \nFor example, \n\n  \n    \n      \n        \n          \n            [\n            \n              \n                \n                  1\n                \n                \n                  9\n                \n                \n                  −\n                  13\n                \n              \n              \n                \n                  20\n                \n                \n                  5\n                \n                \n                  −\n                  6\n                \n              \n            \n            ]\n          \n        \n      \n    \n    {\\displaystyle {\\begin{bmatrix}1&9&-13\\\\20&5&-6\\end{bmatrix}}}\n  \n\ndenotes a matrix with two rows and three columns. This is often referred to as a \"two-by-three matrix\", a 2 × 3 matrix, or a matrix of dimension 2 × 3.\nIn linear algebra, matrices are used as linear maps. In geometry, matrices are used for geometric transformations (for example rotations) and coordinate changes. In numerical analysis, many computational problems are solved by reducing them to a matrix computation, and this often involves computing with matrices of huge dimensions. Matrices are used in most areas of mathematics and scientific fields, either directly, or through their use in geometry and numerical analysis.\nSquare matrices, matrices with the same number of rows and columns, play a major role in matrix theory. The determinant of a square matrix is a number associated with the matrix, which is fundamental for the study of a square matrix; for example, a square matrix is invertible if and only if it has a nonzero determinant and the eigenvalues of a square matrix are the roots of its characteristic polynomial, \n  \n    \n      \n        det\n        (\n        λ\n        I\n        −\n        A\n        )\n      \n    \n    {\\displaystyle \\det(\\lambda I-A)}\n  \n.\nMatrix theory is the branch of mathematics that focuses on the study of matrices. It was initially a sub-branch of linear algebra, but soon grew to include subjects related to graph theory, algebra, combinatorics and statistics.",
+      "url": "https://en.wikipedia.org/wiki/Matrix_(mathematics)",
+      "categories": [],
+      "mathDomain": "Linear algebra"
+    },
+    {
+      "id": "Hilbert_space",
+      "title": "Hilbert space",
+      "extract": "In mathematics, a Hilbert space is a real or complex inner product space that is also a complete metric space with respect to the metric induced by the inner product. It generalizes the notion of Euclidean space to infinite dimensions. The inner product, which is the analog of the dot product from vector calculus, allows lengths and angles to be defined. Furthermore, completeness means that there are enough limits in the space to allow the techniques of calculus to be used. A Hilbert space is a special case of a Banach space.\nHilbert spaces were studied beginning in the first decade of the 20th century by David Hilbert, Erhard Schmidt, and Frigyes Riesz. They are indispensable tools in the theories of partial differential equations, quantum mechanics, Fourier analysis (which includes applications to signal processing and heat transfer), and ergodic theory (which forms the mathematical underpinning of thermodynamics). John von Neumann coined the term Hilbert space for the abstract concept that underlies many of these diverse applications. The success of Hilbert space methods ushered in a very fruitful era for functional analysis. Apart from the classical Euclidean vector spaces, examples of Hilbert spaces include spaces of square-integrable functions, spaces of sequences, Sobolev spaces consisting of generalized functions, and Hardy spaces of holomorphic functions.\nGeometric intuition plays an important role in many aspects of Hilbert space theory. Exact analogs of the Pythagorean theorem and parallelogram law hold in a Hilbert space. At a deeper level, perpendicular projection onto a linear subspace plays a significant role in optimization problems and other aspects of the theory. An element of a Hilbert space can be uniquely specified by its coordinates with respect to an orthonormal basis, in analogy with Cartesian coordinates in classical geometry. When this basis is countably infinite, it allows identifying the Hilbert space with the space of the infinite sequences that are square-summable. The latter space is often in the older literature referred to as the Hilbert space.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Hilbert_space",
+      "categories": [],
+      "mathDomain": "Functional analysis"
+    },
+    {
+      "id": "Combinatorics",
+      "title": "Combinatorics",
+      "extract": "Combinatorics is an area of mathematics primarily concerned with counting, both as a means and as an end to obtaining results, and certain properties of finite structures. It is closely related to many other areas of mathematics and has many applications ranging from logic to statistical physics and from evolutionary biology to computer science.\nCombinatorics is well known for the breadth of the problems it tackles. Combinatorial problems arise in many areas of pure mathematics, notably in algebra, probability theory, topology, and geometry, as well as in its many application areas. Many combinatorial questions have historically been considered in isolation, giving an ad hoc solution to a problem arising in some mathematical context. In the later twentieth century, however, powerful and general theoretical methods were developed, making combinatorics into an independent branch of mathematics in its own right. One of the oldest and most accessible parts of combinatorics is graph theory, which by itself has numerous natural connections to other areas. Combinatorics is used frequently in computer science to obtain formulas and estimates in the analysis of algorithms.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Combinatorics",
+      "categories": [
+        "Combinatorics"
+      ],
+      "mathDomain": "Combinatorics"
+    },
+    {
+      "id": "Differential_geometry",
+      "title": "Differential geometry",
+      "extract": "Differential geometry is a mathematical discipline that studies the geometry of smooth shapes and smooth spaces, otherwise known as smooth manifolds. It uses the techniques of vector calculus, linear algebra and multilinear algebra. The field has its origins in the study of spherical geometry as far back as antiquity. It also relates to astronomy, the geodesy of the Earth, and later  the study of hyperbolic geometry by Lobachevsky. The simplest examples of smooth spaces are the plane and space curves and surfaces in the three-dimensional Euclidean space, and the study of these shapes formed the basis for development of modern differential geometry during the 18th and 19th centuries.\nSince the late 19th century, differential geometry has grown into a field concerned more generally with geometric structures on differentiable manifolds. A geometric structure is one which defines some notion of size, distance, shape, volume, or other rigidifying structure. For example, in Riemannian geometry distances and angles are specified, in symplectic geometry volumes may be computed, in conformal geometry only angles are specified, and in gauge theory certain fields are given over the space. Differential geometry is closely related to, and is sometimes taken to include, differential topology, which concerns itself with properties of differentiable manifolds that do not rely on any additional geometric structure (see that article for more discussion on the distinction between the two subjects). Differential geometry is also related to the geometric aspects of the theory of differential equations, otherwise known as geometric analysis.\nDifferential geometry finds applications throughout mathematics and the natural sciences. Most prominently the language of differential geometry was used by Albert Einstein in his theory of general relativity, and subsequently by physicists in the development of quantum field theory and the Standard Model of particle physics. Outside of physics, differential geometry finds applications in chemistry, economics, engineering, control theory, computer graphics and computer vision, and recently in machine learning.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Differential_geometry",
+      "categories": [
+        "Differential geometry",
+        "Geometry processing"
+      ],
+      "mathDomain": "Differential geometry"
+    },
+    {
+      "id": "Diophantine_equation",
+      "title": "Diophantine equation",
+      "extract": "In mathematics, a Diophantine equation is a polynomial equation with integer coefficients, for which only integer solutions are of interest. A linear Diophantine equation equates the sum of two or more unknowns, with coefficients, to a constant.  An exponential Diophantine equation is one in which unknowns can appear in exponents.\nDiophantine problems have fewer equations than unknowns and involve finding integers that solve all equations simultaneously. Because such systems of equations define algebraic curves, algebraic surfaces, or, more generally, algebraic sets, their study is a part of algebraic geometry that is called Diophantine geometry.\nThe word Diophantine refers to the Hellenistic mathematician of the 3rd century, Diophantus of Alexandria, who made a study of such equations and was one of the first mathematicians to introduce symbolism into algebra. The mathematical study of Diophantine problems that Diophantus initiated is now called Diophantine analysis.\nWhile individual equations present a kind of puzzle and have been considered throughout history, the formulation of general theories of Diophantine equations, beyond the case of linear and quadratic equations, was an achievement of the twentieth century.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Diophantine_equation",
+      "categories": [],
+      "mathDomain": "Number theory"
+    },
+    {
+      "id": "Fundamental_group",
+      "title": "Fundamental group",
+      "extract": "In the mathematical  field of algebraic topology, the fundamental group of a topological space is the group of the equivalence classes under homotopy of the loops contained in the space. It records information about the basic shape, or holes, of the topological space. The fundamental group is the first and simplest homotopy group. The fundamental group is a homotopy invariant—topological spaces that are homotopy equivalent (or the stronger case of homeomorphic) have isomorphic fundamental groups. The fundamental group of a topological space \n  \n    \n      \n        X\n      \n    \n    {\\displaystyle X}\n  \n is denoted by \n  \n    \n      \n        \n          π\n          \n            1\n          \n        \n        (\n        X\n        )\n      \n    \n    {\\displaystyle \\pi _{1}(X)}\n  \n.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Fundamental_group",
+      "categories": [],
+      "mathDomain": "Algebraic topology"
+    },
+    {
+      "id": "Graph_theory",
+      "title": "Graph theory",
+      "extract": "In mathematics and computer science, graph theory is the study of graphs, which are mathematical structures used to model pairwise relations between objects. A graph in this context is made up of vertices (also called nodes or points) which are connected by edges (also called arcs, links, or lines). A distinction is made between undirected graphs, where edges link two vertices symmetrically, and directed graphs, where edges link two vertices asymmetrically. Graphs are one of the principal objects of study in discrete mathematics.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Graph_theory",
+      "categories": [],
+      "mathDomain": "Graph theory"
+    },
+    {
+      "id": "Homeomorphism",
+      "title": "Homeomorphism",
+      "extract": "In mathematics and more specifically in topology, a homeomorphism (from Greek roots meaning \"similar shape\", named by Henri Poincaré), also called topological isomorphism, or bicontinuous function, is a bijective and continuous function between topological spaces that has a continuous inverse function. Homeomorphisms are the isomorphisms in the category of topological spaces—that is, they are the mappings that preserve all the topological properties of a given space. Two spaces with a homeomorphism between them are called homeomorphic, and from a topological viewpoint they are the same.\nVery roughly speaking, a topological space is a geometric object, and a homeomorphism results from a continuous deformation of the object into a new shape. Thus, a square and a circle are homeomorphic to each other, but a sphere and a torus are not. However, this description can be misleading. Some continuous deformations do not produce homeomorphisms, such as the deformation of a line into a point. Some homeomorphisms do not result from  continuous deformations, such as the homeomorphism between a trefoil knot and a circle. Homotopy and isotopy are precise definitions for the informal concept of continuous deformation.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Homeomorphism",
+      "categories": [],
+      "mathDomain": "General topology"
+    },
+    {
+      "id": "Modular_arithmetic",
+      "title": "Modular arithmetic",
+      "extract": "In mathematics, modular arithmetic is a system of arithmetic operations for integers, differing from the usual ones in that numbers \"wrap around\" when reaching or exceeding a certain value, called the modulus. The modern approach to number theory using modular arithmetic was developed by Carl Friedrich Gauss in his book Disquisitiones Arithmeticae, published in 1801.\nA familiar setting exhibiting modular arithmetic is the hour hand on a 12-hour clock. If the hour hand points to 7 now, then 8 hours later it will point to 3. Ordinary addition would result in 7 + 8 = 15, but  15 reads as 3 on the clock face. This is because the hour hand makes one rotation every 12 hours and the hour number starts over when the hour hand passes 12. We say that 15 is congruent to 3 modulo 12, and we write 15 ≡ 3 (mod 12), so 7 + 8 ≡ 3 (mod 12). \nSimilarly, if one waits 8 hours and then 8 more hours (thus 16 hours in total), the clock will show the same time change as if one waited 4 hours.  This is reflected by the identity 2 × 8 ≡ 4 (mod 12). After a wait of exactly 12 hours, the hour hand will be right where it started, so 12 acts as 0; one writes 12 ≡ 0 (mod 12).\n\n",
+      "url": "https://en.wikipedia.org/wiki/Modular_arithmetic",
+      "categories": [],
+      "mathDomain": "Number theory"
+    },
+    {
+      "id": "Number_theory",
+      "title": "Number theory",
+      "extract": "Number theory is a branch of mathematics devoted primarily to the study of the integers and arithmetic functions. Number theorists study prime numbers as well as the properties of mathematical objects constructed from integers (for example, rational numbers), or defined as generalizations of the integers (for example, algebraic integers). \nIntegers can be considered either in themselves or as solutions to equations (Diophantine geometry). Questions in number theory can often be understood through the study of analytical objects, such as the Riemann zeta function, that encode properties of the integers, primes or other number-theoretic objects in some fashion (analytic number theory). One may also study real numbers in relation to rational numbers, as for instance how irrational numbers can be approximated by fractions (Diophantine approximation).\nNumber theory is one of the oldest branches of mathematics alongside geometry. One quirk of number theory is that it deals with statements that are simple to understand but are very difficult to solve. Examples of this are Fermat's Last Theorem, which was proved 358 years after the original formulation, and Goldbach's conjecture, which remains unsolved since the 18th century. German mathematician Carl Friedrich Gauss (1777–1855) once remarked, \"Mathematics is the queen of the sciences—and number theory is the queen of mathematics.\" It was regarded as the epitome of pure mathematics, with no applications outside mathematics, until the 1970s, when prime numbers became the basis for the creation of public-key cryptography algorithms, such as the RSA cryptosystem.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Number_theory",
+      "categories": [],
+      "mathDomain": "Number theory"
+    },
+    {
+      "id": "Prime_number",
+      "title": "Prime number",
+      "extract": "A prime number (or a prime) is a natural number greater than 1 that is not a product of two smaller natural numbers. A natural number greater than 1 that is not prime is called a composite number. For example, 5 is prime because the only ways of writing it as a product, 1 × 5 or 5 × 1, involve 5 itself. However, 4 is composite because it is a product (2 × 2) in which both numbers are smaller than 4. Primes are central in number theory because of the fundamental theorem of arithmetic: every natural number greater than 1 is either a prime itself or can be factorized as a product of primes that is unique up to their order.\nThe property of being prime is called primality. A simple but slow method of checking the primality of a given number ⁠\n  \n    \n      \n        n\n      \n    \n    {\\displaystyle n}\n  \n⁠, called trial division, tests whether ⁠\n  \n    \n      \n        n\n      \n    \n    {\\displaystyle n}\n  \n⁠ is a multiple of any integer between 2 and ⁠\n  \n    \n      \n        \n          \n            n\n          \n        \n      \n    \n    {\\displaystyle {\\sqrt {n}}}\n  \n⁠. Faster algorithms include the Miller–Rabin primality test, which is fast but has a small chance of error, and the AKS primality test, which always produces the correct answer in polynomial time but is too slow to be practical. Particularly fast methods are available for numbers of special forms, such as Mersenne numbers. As of October 2024 the largest known prime number is a Mersenne prime with 41,024,320 decimal digits.\nThere are infinitely many primes, as demonstrated by Euclid around 300 BC. No known simple formula separates prime numbers from composite numbers. However, the distribution of primes within the natural numbers in the large can be statistically modelled. The first result in that direction is the prime number theorem, proven at the end of the 19th century, which says roughly that the probability of a randomly chosen large number being prime is inversely proportional to its number of digits, that is, to its logarithm.\nSeveral historical questions regarding prime numbers are still unsolved. These include Goldbach's conjecture, that every even integer greater than 2 can be expressed as the sum of two primes, and the twin prime conjecture, that there are infinitely many pairs of primes that differ by two. Such questions spurred the development of various branches of number theory, focusing on analytic or algebraic aspects of numbers. Primes are used in several routines in information technology, such as public-key cryptography, which relies on the difficulty of factoring large numbers into their prime factors. In abstract algebra, objects that behave in a generalized way like prime numbers include prime elements and prime ideals.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Prime_number",
+      "categories": [],
+      "mathDomain": "Number theory"
+    },
+    {
+      "id": "Riemann_zeta_function",
+      "title": "Riemann zeta function",
+      "extract": "The Riemann zeta function or Euler–Riemann zeta function, denoted by the lowercase Greek letter ζ (zeta), is a mathematical function of a complex variable defined as \n  \n    \n      \n        ζ\n        (\n        s\n        )\n        =\n        \n          ∑\n          \n            n\n            =\n            1\n          \n          \n            ∞\n          \n        \n        \n          \n            1\n            \n              n\n              \n                s\n              \n            \n          \n        \n        =\n        \n          \n            1\n            \n              1\n              \n                s\n              \n            \n          \n        \n        +\n        \n          \n            1\n            \n              2\n              \n                s\n              \n            \n          \n        \n        +\n        \n          \n            1\n            \n              3\n              \n                s\n              \n            \n          \n        \n        +\n        ⋯\n      \n    \n    {\\displaystyle \\zeta (s)=\\sum _{n=1}^{\\infty }{\\frac {1}{n^{s}}}={\\frac {1}{1^{s}}}+{\\frac {1}{2^{s}}}+{\\frac {1}{3^{s}}}+\\cdots }\n  \n for \n  \n    \n      \n        \n          R\n          e\n        \n        (\n        s\n        )\n        >\n        1\n      \n    \n    {\\displaystyle \\mathrm {Re} (s)>1}\n  \n, and its analytic continuation elsewhere.\nThe Riemann zeta function plays a pivotal role in analytic number theory and has applications in physics, probability theory, and applied statistics.\nLeonhard Euler first introduced and studied the function over the reals in the first half of the eighteenth century. Bernhard Riemann's 1859 article \"On the Number of Primes Less Than a Given Magnitude\" extended the Euler definition to a complex variable, proved its meromorphic continuation and functional equation, and established a relation between its zeros and the distribution of prime numbers.  This paper also contained the Riemann hypothesis, a conjecture about the distribution of complex zeros of the Riemann zeta function that many mathematicians consider the most important unsolved problem in pure mathematics.\nThe values of the Riemann zeta function at even positive integers were computed by Euler. The first of them, ζ(2), provides a solution to the Basel problem. In 1979, Roger Apéry proved the irrationality of ζ(3), and as a consequence, the number was named after him. The values at negative integer points, also found by Euler, are rational numbers and play an important role in the theory of modular forms. Many generalizations of the Riemann zeta function, such as Dirichlet series, Dirichlet L-functions and L-functions, are known.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Riemann_zeta_function",
+      "categories": [],
+      "mathDomain": "Analytic number theory"
+    },
+    {
+      "id": "Topology",
+      "title": "Topology",
+      "extract": "Topology (from the Greek words τόπος, 'place, location', and λόγος, 'study') is the branch of mathematics concerned with the properties of a geometric object that are preserved under continuous deformations, such as stretching, twisting, crumpling, and bending; that is, without closing holes, opening holes, tearing, gluing, or passing through itself.\nA topological space is a set endowed with a structure, called a topology, which allows defining continuous deformation of subspaces, and, more generally, all kinds of continuity. Euclidean spaces, and, more generally, metric spaces are examples of topological spaces, as any distance or metric defines a topology. The deformations that are considered in topology are homeomorphisms and homotopies. A property that is invariant under such deformations is a topological property. The following are basic examples of topological properties: the dimension, which allows distinguishing between a line and a surface; compactness, which allows distinguishing between a line and a circle; connectedness, which allows distinguishing a circle from two non-intersecting circles.\nThe ideas underlying topology go back to Gottfried Wilhelm Leibniz, who in the 17th century envisioned the geometria situs and analysis situs. Leonhard Euler's Seven Bridges of Königsberg problem and polyhedron formula are arguably the field's first theorems. The term topology was introduced by Johann Benedict Listing in the 19th century, although, it was not until the first decades of the 20th century that the idea of a topological space was developed.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Topology",
+      "categories": [],
+      "mathDomain": "General topology"
+    },
+    {
+      "id": "Topological_space",
+      "title": "Topological space",
+      "extract": "In mathematics, a topological space is, roughly speaking, a geometrical space in which closeness is defined but cannot necessarily be measured by a numeric distance. More specifically, a topological space is a set whose elements are called points, along with an additional structure called a topology, which can be defined as a set of neighbourhoods for each point that satisfy some axioms formalizing the concept of closeness. There are several equivalent definitions of a topology, the most commonly used of which is the definition through open sets.\nA topological space is the most general type of a mathematical space that allows for the definition of limits, continuity, and connectedness. Common types of topological spaces include Euclidean spaces, metric spaces and manifolds.\nAlthough very general, the concept of topological spaces is fundamental, and used in virtually every branch of modern mathematics. The study of topological spaces in their own right is called general topology (or point-set topology).",
+      "url": "https://en.wikipedia.org/wiki/Topological_space",
+      "categories": [],
+      "mathDomain": "General topology"
+    },
+    {
+      "id": "Algebraic_topology",
+      "title": "Algebraic topology",
+      "extract": "Algebraic topology is a branch of mathematics that uses tools from abstract algebra to study topological spaces. The basic goal is to find algebraic invariants that classify topological spaces up to homeomorphism, though usually most classify up to homotopy equivalence.\nAlthough algebraic topology primarily uses algebra to study topological problems, using topology to solve algebraic problems is sometimes also possible. Algebraic topology, for example, allows for a convenient proof that any subgroup of a free group is again a free group.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Algebraic_topology",
+      "categories": [],
+      "mathDomain": "Algebraic topology"
+    },
+    {
+      "id": "Permutation",
+      "title": "Permutation",
+      "extract": "In mathematics, a permutation of a set can mean one of two different things:\n\nan arrangement of its members in a sequence or linear order, or\nthe act or process of changing the linear order of an ordered set.\nAn example of the first meaning is the six permutations (orderings) of the set {1, 2, 3}: written as tuples, they are (1, 2, 3), (1, 3, 2), (2, 1, 3), (2, 3, 1), (3, 1, 2), and (3, 2, 1). Anagrams of a word whose letters are all different are also permutations: the letters are already ordered in the original word, and the anagram reorders them. The study of permutations of finite sets is an important topic in combinatorics and group theory.\nPermutations are used in almost every branch of mathematics and in many other fields of science. In computer science, they are used for analyzing sorting algorithms; in quantum physics, for describing states of particles; and in biology, for describing RNA sequences.\nThe number of permutations of n distinct objects is n factorial, usually written as n!, which means the product of all positive integers less than or equal to n.\nAccording to the second meaning, a permutation of a set S is defined as a bijection from S to itself. That is, it is a function from S to S for which every element occurs exactly once as an image value. Such a function \n  \n    \n      \n        σ\n        :\n        S\n        →\n        S\n      \n    \n    {\\displaystyle \\sigma :S\\to S}\n  \n is equivalent to the rearrangement of the elements of S in which each element i is replaced by the corresponding \n  \n    \n      \n        σ\n        (\n        i\n        )\n      \n    \n    {\\displaystyle \\sigma (i)}\n  \n. For example, the permutation (3, 1, 2) corresponds to the function \n  \n    \n      \n        σ\n      \n    \n    {\\displaystyle \\sigma }\n  \n defined as\n\n  \n    \n      \n        σ\n        (\n        1\n        )\n        =\n        3\n        ,\n        \n        σ\n        (\n        2\n        )\n        =\n        1\n        ,\n        \n        σ\n        (\n        3\n        )\n        =\n        2.\n      \n    \n    {\\displaystyle \\sigma (1)=3,\\quad \\sigma (2)=1,\\quad \\sigma (3)=2.}\n  \n\nThe collection of all permutations of a set form a group called the symmetric group of the set. The group operation is the composition of functions (performing one rearrangement after the other), which results in another function (rearrangement).\nIn elementary combinatorics, the k-permutations, or partial permutations, are the ordered arrangements of k distinct elements selected from a set. When k is equal to the size of the set, these are the permutations in the previous sense.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Permutation",
+      "categories": [],
+      "mathDomain": "Combinatorics"
+    },
+    {
+      "id": "Homology_(mathematics)",
+      "title": "Homology (mathematics)",
+      "extract": "In mathematics, the term homology, originally introduced in algebraic topology, has three primary, closely related usages. First, there is the homology of a chain complex, a sequence of abelian groups, called homology groups, which are regarded fundamental invariants of the chain complex. Secondly, when one can associate a chain complex to a different mathematical object, one can also associate its homology to that object. Distinct procedures of associating chain complexes to a given object are grouped into homology theories. Finally, homology is important in the study of topological spaces. Under nice conditions in which distinct homology theories for a single topological space produce the same homology groups, one can define a single homology of a topological space. This last notion of homology is closely related to topological ideas frequently discussed in popular mathematics such as the holes of a surface or the cycles of a graph. There is also a related notion of the cohomology of a cochain complex, giving rise to various cohomology theories, in addition to the notion of the cohomology of a topological space.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Homology_(mathematics)",
+      "categories": [],
+      "mathDomain": "Algebraic topology"
+    },
+    {
+      "id": "Riemannian_manifold",
+      "title": "Riemannian manifold",
+      "extract": "In differential geometry, a Riemannian manifold (or Riemann space) is a geometric space on which many geometric notions such as distance, angles, length, volume, and curvature are defined. Euclidean space, the \n  \n    \n      \n        n\n      \n    \n    {\\displaystyle n}\n  \n-sphere, hyperbolic space, and smooth surfaces in three-dimensional space, such as ellipsoids and paraboloids, are all examples of Riemannian manifolds. Riemannian manifolds take their name from German mathematician Bernhard Riemann, who first conceptualized them in 1854.\nFormally, a Riemannian metric (or just a metric) on a smooth manifold is a smoothly varying choice of inner product for each tangent space of the manifold. A Riemannian manifold is a smooth manifold together with a Riemannian metric. The techniques of differential and integral calculus are used to pull geometric data out of the Riemannian metric. For example, integration leads to the Riemannian distance function, whereas differentiation is used to define curvature and parallel transport.\nAny smooth surface in three-dimensional Euclidean space is a Riemannian manifold with a Riemannian metric coming from the way it sits inside the ambient space. The same is true for any submanifold of Euclidean space of any dimension. Although John Nash proved that every Riemannian manifold arises as a submanifold of Euclidean space, and although some Riemannian manifolds are naturally exhibited or defined in that way, the idea of a Riemannian manifold emphasizes the intrinsic point of view, which defines geometric notions directly on the abstract space itself without referencing an ambient space. In many instances, such as for hyperbolic space and projective space, Riemannian metrics are more naturally defined or constructed using the intrinsic point of view. Additionally, many metrics on Lie groups and homogeneous spaces are defined intrinsically by using group actions to transport an inner product on a single tangent space to the entire manifold, and many special metrics such as constant scalar curvature metrics and Kähler–Einstein metrics are constructed intrinsically using tools from partial differential equations.\nRiemannian geometry, the study of Riemannian manifolds, has deep connections to other areas of mathematics, including geometric topology, complex geometry, and algebraic geometry. Applications include physics (especially general relativity and gauge theory), computer graphics, machine learning, and cartography. Generalizations of Riemannian manifolds include pseudo-Riemannian manifolds, Finsler manifolds, and sub-Riemannian manifolds.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Riemannian_manifold",
+      "categories": [],
+      "mathDomain": "Differential geometry"
+    },
+    {
+      "id": "Algebraic_number_theory",
+      "title": "Algebraic number theory",
+      "extract": "Algebraic number theory is a branch of number theory that uses the techniques of abstract algebra to study the integers, rational numbers, and their generalizations. Number-theoretic questions are expressed in terms of properties of algebraic objects such as algebraic number fields and their rings of integers, finite fields, and function fields. These properties, such as whether a ring admits unique factorization, the behavior of ideals, and the Galois groups of fields, can resolve questions of primary importance in number theory, like the existence of solutions to Diophantine equations.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Algebraic_number_theory",
+      "categories": [],
+      "mathDomain": "Number theory"
+    },
+    {
+      "id": "Analytic_number_theory",
+      "title": "Analytic number theory",
+      "extract": "In mathematics, analytic number theory is a branch of number theory that uses methods from mathematical analysis to solve problems about the integers. It is often said to have begun with Peter Gustav Lejeune Dirichlet's 1837 introduction of Dirichlet L-functions to give the first proof of Dirichlet's theorem on arithmetic progressions. It is well known for its results on prime numbers (involving the Prime Number Theorem and Riemann zeta function) and additive number theory (such as the Goldbach conjecture and Waring's problem).\n\n",
+      "url": "https://en.wikipedia.org/wiki/Analytic_number_theory",
+      "categories": [],
+      "mathDomain": "Analytic number theory"
+    },
+    {
+      "id": "Operator_theory",
+      "title": "Operator theory",
+      "extract": "In mathematics, operator theory is the study of linear operators on function spaces, beginning with differential operators and integral operators. The operators may be presented abstractly by their characteristics, such as bounded linear operators or closed operators, and consideration may be given to nonlinear operators. The study, which depends heavily on the topology of function spaces, is a branch of functional analysis.\nIf a collection of operators forms an algebra over a field, then it is an operator algebra. The description of operator algebras is part of operator theory.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Operator_theory",
+      "categories": [],
+      "mathDomain": "Functional analysis"
+    },
+    {
+      "id": "Manifold",
+      "title": "Manifold",
+      "extract": "In mathematics, a manifold is a topological space that locally resembles Euclidean space near each point. More precisely, an \n  \n    \n      \n        n\n      \n    \n    {\\displaystyle n}\n  \n-dimensional manifold, or \n  \n    \n      \n        n\n      \n    \n    {\\displaystyle n}\n  \n-manifold for short, is a topological space with the property that each point has a neighborhood that is homeomorphic to an open subset of \n  \n    \n      \n        n\n      \n    \n    {\\displaystyle n}\n  \n-dimensional Euclidean space.\nOne-dimensional manifolds include lines and circles, but not self-crossing curves such as a figure-eight. Two-dimensional manifolds are also called surfaces. Examples include the plane, the sphere, and the torus, and also the Klein bottle and real projective plane.\nThe concept of a manifold is central to many parts of geometry and modern mathematical physics because it allows complicated structures to be described in terms of well-understood topological properties of simpler spaces. Manifolds naturally arise as solution sets of systems of equations and as graphs of functions. The concept has applications in computer-graphics given the need to associate pictures with coordinates (e.g. CT scans).\nManifolds can be equipped with additional structure. One important class of manifolds are differentiable manifolds; their differentiable structure allows calculus to be done. A Riemannian metric on a manifold allows distances and angles to be measured. Symplectic manifolds serve as the phase spaces in the Hamiltonian formalism of classical mechanics, while four-dimensional Lorentzian manifolds model spacetime in general relativity.\nThe study of manifolds requires working knowledge of calculus and topology.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Manifold",
+      "categories": [],
+      "mathDomain": "Differential geometry"
+    },
+    {
+      "id": "Algebraic_geometry",
+      "title": "Algebraic geometry",
+      "extract": "Algebraic geometry is a branch of mathematics which uses abstract algebraic techniques, mainly from commutative algebra, to solve geometrical problems. Classically, it studies zeros of multivariate polynomials; the modern approach generalizes this in a few different aspects.\nThe fundamental objects of study in algebraic geometry are algebraic varieties, which are geometric manifestations of solutions of systems of polynomial equations. Examples of the most studied classes of algebraic varieties are lines, circles, parabolas, ellipses, hyperbolas, cubic curves like elliptic curves, and quartic curves like lemniscates and Cassini ovals. These are plane algebraic curves. A point of the plane lies on an algebraic curve if its coordinates satisfy a given polynomial equation. Basic questions involve the study of points of special interest like singular points, inflection points and points at infinity. More advanced questions involve the topology of the curve and the relationship between curves defined by different equations.\nAlgebraic geometry occupies a central place in modern mathematics and has multiple conceptual connections with such diverse fields as complex analysis, topology and number theory. As a study of systems of polynomial equations in several variables, the subject of algebraic geometry begins with finding specific solutions via equation solving, and then proceeds to understand the intrinsic properties of the totality of solutions of a system of equations. This understanding requires both conceptual theory and computational technique.\nIn the 20th century, algebraic geometry split into several subareas.\n\nThe mainstream of algebraic geometry is devoted to the study of the complex points of the algebraic varieties and more generally to the points with coordinates in an algebraically closed field.\nReal algebraic geometry is the study of the real algebraic varieties.\nDiophantine geometry and, more generally, arithmetic geometry is the study of algebraic varieties over fields that are not algebraically closed and, specifically, over fields of interest in algebraic number theory, such as the field of rational numbers, number fields, finite fields, function fields, and p-adic fields.\nA large part of singularity theory is devoted to the singularities of algebraic varieties.\nComputational algebraic geometry is an area that has emerged at the intersection of algebraic geometry and computer algebra, with the rise of computers. It consists mainly of algorithm design and software development for the study of properties of explicitly given algebraic varieties.\nMuch of the development of the mainstream of algebraic geometry in the 20th century occurred within an abstract algebraic framework, with increasing emphasis being placed on \"intrinsic\" properties of algebraic varieties not dependent on any particular way of embedding the variety in an ambient coordinate space; this parallels developments in topology, differential and complex geometry. One key achievement of this abstract algebraic geometry is Grothendieck's scheme theory which allows one to use sheaf theory to study algebraic varieties in a way which is very similar to its use in the study of differential and analytic manifolds. This is obtained by extending the notion of point: In classical algebraic geometry, a point of an affine variety may be identified, through Hilbert's Nullstellensatz, with a maximal ideal of the coordinate ring, while the points of the corresponding affine scheme are all prime ideals of this ring. This means that a point of such a scheme may be either a usual point or a sub-variety. This approach also enables a unification of the language and the tools of classical algebraic geometry, mainly concerned with complex points, and of algebraic number theory. Wiles' proof of the longstanding conjecture called Fermat's Last Theorem is an example of the power of this approach.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Algebraic_geometry",
+      "categories": [
+        "Algebraic geometry"
+      ],
+      "mathDomain": "Algebraic geometry"
+    },
+    {
+      "id": "Category_theory",
+      "title": "Category theory",
+      "extract": "Category theory is a general theory of mathematical structures and their relations. It was introduced by Samuel Eilenberg and Saunders Mac Lane in the mid-20th century in their foundational work on algebraic topology. Category theory can be used in most areas of mathematics. In particular, many constructions of new mathematical objects from previous ones that appear similarly in several contexts are conveniently expressed and unified in terms of categories. Examples include quotient spaces, direct products, completion, and duality.\nMany areas of computer science also rely on category theory, such as functional programming and semantics.\nA category is formed by two sorts of objects: the objects of the category, and the morphisms, which relate two objects called the source and the target of the morphism. A morphism is often represented by an arrow from its source to its target (see the figure). Morphisms can be composed if the target of the first morphism equals the source of the second one. Morphism composition has similar properties as function composition (associativity and existence of an identity morphism for each object). Morphisms are often some sort of functions, but this is not always the case. For example, a monoid may be viewed as a category with a single object, whose morphisms are the elements of the monoid.\nThe second fundamental concept of category theory is the concept of a functor, which plays the role of a morphism between two categories \n  \n    \n      \n        \n          \n            \n              C\n            \n          \n          \n            1\n          \n        \n      \n    \n    {\\displaystyle {\\mathcal {C}}_{1}}\n  \n and \n  \n    \n      \n        \n          \n            \n              C\n            \n          \n          \n            2\n          \n        \n      \n    \n    {\\displaystyle {\\mathcal {C}}_{2}}\n  \n: it maps objects of \n  \n    \n      \n        \n          \n            \n              C\n            \n          \n          \n            1\n          \n        \n      \n    \n    {\\displaystyle {\\mathcal {C}}_{1}}\n  \n to objects of \n  \n    \n      \n        \n          \n            \n              C\n            \n          \n          \n            2\n          \n        \n      \n    \n    {\\displaystyle {\\mathcal {C}}_{2}}\n  \n and morphisms of \n  \n    \n      \n        \n          \n            \n              C\n            \n          \n          \n            1\n          \n        \n      \n    \n    {\\displaystyle {\\mathcal {C}}_{1}}\n  \n to morphisms of \n  \n    \n      \n        \n          \n            \n              C\n            \n          \n          \n            2\n          \n        \n      \n    \n    {\\displaystyle {\\mathcal {C}}_{2}}\n  \n in such a way that sources are mapped to sources, and targets are mapped to targets (or, in the case of a contravariant functor, sources are mapped to targets and vice-versa). A third fundamental concept is a natural transformation that may be viewed as a morphism of functors.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Category_theory",
+      "categories": [
+        "Category theory",
+        "Foundations of mathematics",
+        "Higher category theory"
+      ],
+      "mathDomain": "Category theory"
+    },
+    {
+      "id": "Dynamical_system",
+      "title": "Dynamical system",
+      "extract": "In mathematics, physics, engineering and systems theory, a dynamical system is the description of how a system evolves in time.\n\nWe express our observables as numbers and record them over time.\nFor example, an astronomer can experimentally record the positions of how the planets move in the sky, and this can be considered a complete enough description of a dynamical system. In the case of planets there is also enough knowledge to codify this information as a set of differential equations with initial conditions, or as a map from the present state to a future state in a predefined state space with a time parameter t, \nor as an orbit in phase space.\nThe study of dynamical systems is the focus of dynamical systems theory, which has applications to a wide variety of fields such as mathematics, physics, biology, chemistry, engineering, economics, history, and medicine. Dynamical systems are a fundamental part of chaos theory, logistic map dynamics, bifurcation theory, the self-assembly and self-organization processes, and the edge of chaos concept.",
+      "url": "https://en.wikipedia.org/wiki/Dynamical_system",
+      "categories": [],
+      "mathDomain": "Dynamical systems"
+    },
+    {
+      "id": "Mathematical_logic",
+      "title": "Mathematical logic",
+      "extract": "Mathematical logic is the study of formal logic within mathematics. Major subareas include model theory, proof theory, set theory, and recursion theory (also known as computability theory). Research in mathematical logic commonly addresses the mathematical properties of formal systems of logic such as their expressive or deductive power. However, it can also include uses of logic to characterize correct mathematical reasoning or to establish foundations of mathematics.\nSince its inception, mathematical logic has both contributed to and been motivated by the study of the foundations of mathematics. This study began in the late 19th century with the development of axiomatic frameworks for geometry, arithmetic, and analysis. In the early 20th century it was shaped by David Hilbert's program to prove the consistency of foundational theories. Results of Kurt Gödel, Gerhard Gentzen, and others provided partial resolution to the program, and clarified the issues involved in proving consistency. Work in set theory showed that almost all ordinary mathematics can be formalized in terms of sets, although there are some theorems that cannot be proven in common axiom systems for set theory. Contemporary work in the foundations of mathematics often focuses on establishing which parts of mathematics can be formalized in particular formal systems (as in reverse mathematics) rather than trying to find theories in which all of mathematics can be developed.",
+      "url": "https://en.wikipedia.org/wiki/Mathematical_logic",
+      "categories": [],
+      "mathDomain": "Mathematical logic"
+    },
+    {
+      "id": "Model_theory",
+      "title": "Model theory",
+      "extract": "In mathematical logic, model theory is the study of the relationship between formal theories (a collection of sentences in a formal language expressing statements about a mathematical structure), and their models (those structures in which the statements of the theory hold). The aspects investigated include the number and size of models of a theory, the relationship of different models to each other, and their interaction with the formal language itself. In particular, model theorists also investigate the sets that can be defined in a model of a theory, and the relationship of such definable sets to each other.\nAs a separate discipline, model theory goes back to Alfred Tarski, who first used the term \"Theory of Models\" in publication in 1954.\nSince the 1970s, the subject has been shaped decisively by Saharon Shelah's stability theory.\nCompared to other areas of mathematical logic such as proof theory, model theory is often less concerned with formal rigour and closer in spirit to classical mathematics.\nThis has prompted the comment that \"if proof theory is about the sacred, then model theory is about the profane\".\nThe applications of model theory to algebraic and Diophantine geometry reflect this proximity to classical mathematics, as they often involve an integration of algebraic and model-theoretic results and techniques.  Consequently, proof theory is syntactic in nature, in contrast to model theory, which is semantic in nature.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Model_theory",
+      "categories": [],
+      "mathDomain": "Mathematical logic"
+    },
+    {
+      "id": "Measure_(mathematics)",
+      "title": "Measure (mathematics)",
+      "extract": "In mathematics, the concept of a measure is a generalization and formalization of geometrical measures (length, area, volume) and other common notions, such as magnitude, mass, and probability of events. These seemingly distinct concepts have many similarities and can often be treated together in a single mathematical context. Measures are foundational in probability theory, integration theory, and can be generalized to assume negative values, as with electrical charge. Far-reaching generalizations (such as spectral measures and  positive operator-valued measures) of measure are widely used in quantum physics and physics in general.\nThe intuition behind this concept dates back to Ancient Greece, when Archimedes tried to calculate the area of a circle. But it was not until the late 19th and early 20th centuries that measure theory became a branch of mathematics. The foundations of modern measure theory were laid in the works of Émile Borel, Henri Lebesgue, Nikolai Luzin, Johann Radon, Constantin Carathéodory, and Maurice Fréchet, among others. According to Thomas W. Hawkins Jr., \"It was primarily through the theory of multiple integrals and, in particular the work of Camille Jordan that the importance of the notion of measurability was first recognized.\"\n\n",
+      "url": "https://en.wikipedia.org/wiki/Measure_(mathematics)",
+      "categories": [],
+      "mathDomain": "Mathematics"
+    },
+    {
+      "id": "Probability_theory",
+      "title": "Probability theory",
+      "extract": "Probability theory or probability calculus is the branch of mathematics concerned with probability. Although there are several different probability interpretations, probability theory treats the concept in a rigorous mathematical manner by expressing it through a set of axioms. Typically these axioms formalise probability in terms of a probability space, which assigns a measure taking values between 0 and 1, termed the probability measure, to a set of outcomes called the sample space. Any specified subset of the sample space is called an event.\nCentral subjects in probability theory include discrete and continuous random variables, probability distributions, and stochastic processes (which provide mathematical abstractions of non-deterministic or uncertain processes or measured quantities that may either be single occurrences or evolve over time in a random fashion).\nAlthough it is not possible to perfectly predict random events, much can be said about their behavior. Two major results in probability theory describing such behaviour are the law of large numbers and the central limit theorem.\nAs a mathematical foundation for statistics, probability theory is essential to many human activities that involve quantitative analysis of data. Methods of probability theory also apply to descriptions of complex systems given only partial knowledge of their state, as in statistical mechanics or sequential estimation. A great discovery of twentieth-century physics was the probabilistic nature of physical phenomena at atomic scales, described in quantum mechanics.",
+      "url": "https://en.wikipedia.org/wiki/Probability_theory",
+      "categories": [],
+      "mathDomain": "Probability theory"
+    },
+    {
+      "id": "Statistics",
+      "title": "Statistics",
+      "extract": "Statistics (from German: Statistik, orig. \"description of a state, a country\") is the discipline that concerns the collection, organization, analysis, interpretation, and presentation of data. In applying statistics to a scientific, industrial, or social problem, it is conventional to begin with a statistical population or a statistical model to be studied. Populations can be diverse groups of people or objects such as \"all people living in a country\" or \"every atom composing a crystal\". Statistics deals with every aspect of data, including the planning of data collection in terms of the design of surveys and experiments. Statistics is deeply related to subjects like physics, chemistry, geography, geopolitics, and especially mathematics.\nWhen census data (comprising every member of the target population) cannot be collected, statisticians collect data by developing specific experiment designs and survey samples. Representative sampling assures that inferences and conclusions can reasonably extend from the sample to the population as a whole. An experimental study involves taking measurements of the system under study, manipulating the system, and then taking additional measurements using the same procedure to determine if the manipulation has modified the values of the measurements. In contrast, an observational study does not involve experimental manipulation.\nTwo main statistical methods are used in data analysis: descriptive statistics, which summarize data from a sample using indexes such as the mean or standard deviation, and inferential statistics, which draw conclusions from data that are subject to random variation (e.g., observational errors, sampling variation). Descriptive statistics are most often concerned with two sets of properties of a distribution (sample or population): central tendency (or location) seeks to characterize the distribution's central or typical value, while dispersion (or variability) characterizes the extent to which members of the distribution depart from its center and each other. Inferences made using mathematical statistics employ the framework of probability theory, which deals with the analysis of random phenomena.\nA standard statistical procedure involves the collection of data leading to a test of the relationship between two statistical data sets, or a data set and synthetic data drawn from an idealized model. A hypothesis is proposed for the statistical relationship between the two data sets, an alternative to an idealized null hypothesis of no relationship between two data sets. Rejecting or disproving the null hypothesis is done using statistical tests that quantify the sense in which the null can be proven false, given the data that are used in the test. Working from a null hypothesis, two basic forms of error are recognized: Type I errors (null hypothesis is rejected when it is in fact true, giving a \"false positive\") and Type II errors (null hypothesis fails to be rejected when it is in fact false, giving a \"false negative\"). Multiple problems have come to be associated with this framework, ranging from obtaining a sufficient sample size to specifying an adequate null hypothesis.\nStatistical measurement processes are also prone to error with regard to the data they generate. Many of these errors are classified as random (noise) or systematic (bias), but other types of errors (e.g., blunder, such as when an analyst reports incorrect units) can also occur. The presence of missing data or censoring may result in biased estimates, and specific techniques have been developed to address these problems.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Statistics",
+      "categories": [],
+      "mathDomain": "Mathematical statistics"
+    },
+    {
+      "id": "Set_theory",
+      "title": "Set theory",
+      "extract": "Set theory is the branch of mathematical logic that studies sets, which can be informally described as collections of objects. Although objects of any kind can be collected into a set, set theory – as a branch of mathematics – is mostly concerned with those that are relevant to mathematics as a whole.\nThe modern study of set theory was initiated by the German mathematicians Richard Dedekind and Georg Cantor in the 1870s. In particular, Georg Cantor is commonly considered the founder of set theory. The non-formalized systems investigated during this early stage go under the name of naive set theory. After the discovery of paradoxes within naive set theory (such as Russell's paradox, Cantor's paradox and the Burali-Forti paradox), various axiomatic systems were proposed in the early twentieth century, of which Zermelo–Fraenkel set theory (with or without the axiom of choice) is still the best-known and most studied.\nSet theory is commonly employed as a foundational system for the whole of mathematics, particularly in the form of Zermelo–Fraenkel set theory with the axiom of choice. Besides its foundational role, set theory also provides the framework to develop a mathematical theory of infinity, and has various applications in computer science (such as in the theory of relational algebra), philosophy, formal semantics, and evolutionary dynamics. Its foundational appeal, together with its paradoxes, and its implications for the concept of infinity and its multiple applications have made set theory an area of major interest for logicians and philosophers of mathematics. Contemporary research into set theory covers a vast array of topics, ranging from the structure of the real number line to the study of the consistency of large cardinals.",
+      "url": "https://en.wikipedia.org/wiki/Set_theory",
+      "categories": [],
+      "mathDomain": "Set theory"
+    },
+    {
+      "id": "Partial_differential_equation",
+      "title": "Partial differential equation",
+      "extract": "In mathematics, a partial differential equation (PDE) is an equation which involves a multivariable function and one or more of its partial derivatives.\nThe function is often thought of as an \"unknown\" that solves the equation. However, it is often impossible to write down explicit formulas for solutions of partial differential equations. Hence there is a vast amount of modern mathematical and scientific research on methods to numerically approximate solutions of partial differential equations using computers. Partial differential equations also occupy a large sector of pure mathematical research, where the focus is on the qualitative features of solutions of various partial differential equations, such as existence, uniqueness, regularity and stability. Among the many open questions are the existence and smoothness of solutions to the Navier–Stokes equations, named as one of the Millennium Prize Problems in 2000.\nPartial differential equations occur very widely in mathematically oriented scientific fields, such as physics and engineering. For instance, they are foundational in the modern scientific understanding of sound, heat, diffusion, electrostatics, electrodynamics, thermodynamics, fluid dynamics, elasticity, general relativity, and quantum mechanics (Schrödinger equation, Pauli equation etc.). They also arise from many purely mathematical considerations, such as differential geometry and the calculus of variations; among other notable applications, they are the fundamental tool in the proof of the Poincaré conjecture from geometric topology.\nPartly due to this variety of sources, there is a wide spectrum of types of partial differential equations. Many different methods have been developed for dealing with the individual equations which arise. As such, there is no \"universal theory\" of partial differential equations, with specialist knowledge being divided between several distinct subfields.\nOrdinary differential equations can be viewed as a subclass of partial differential equations, corresponding to functions of a single variable. Stochastic partial differential equations and nonlocal equations are widely studied extensions of the \"PDE\" notion. More classical topics, on which there is still much active research, include elliptic and parabolic partial differential equations, fluid mechanics, Boltzmann equations, and dispersive partial differential equations.",
+      "url": "https://en.wikipedia.org/wiki/Partial_differential_equation",
+      "categories": [],
+      "mathDomain": "Differential equations"
+    },
+    {
+      "id": "Computability_theory",
+      "title": "Computability theory",
+      "extract": "Computability theory, also known as recursion theory, is a branch of mathematical logic, computer science, and the theory of computation that originated in the 1930s with the study of computable functions and Turing degrees. The field has since expanded to include the study of generalized computability and definability. In these areas, computability theory overlaps with proof theory and effective descriptive set theory.\nBasic questions addressed by computability theory include:\n\nWhat does it mean for a function on the natural numbers to be computable?\nHow can noncomputable functions be classified into a hierarchy based on their level of noncomputability?\nAlthough there is considerable overlap in terms of knowledge and methods, mathematical computability theorists study the theory of relative computability, reducibility notions, and degree structures; those in the computer science field focus on the theory of subrecursive hierarchies, formal methods, and formal languages. The study of which mathematical constructions can be effectively performed is sometimes called recursive mathematics.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Computability_theory",
+      "categories": [],
+      "mathDomain": "Computability theory"
+    },
+    {
+      "id": "Generating_function",
+      "title": "Generating function",
+      "extract": "In mathematics, a generating function is a representation of an infinite sequence of numbers as the coefficients of a formal power series. Generating functions are often expressed in closed form (rather than as a series), by some expression involving operations on the formal series. \nThere are various types of generating functions, including ordinary generating functions, exponential generating functions, Lambert series, Bell series, and Dirichlet series. Every sequence in principle has a generating function of each type (except that Lambert and Dirichlet series require indices to start at 1 rather than 0), but the ease with which they can be handled may differ considerably. The particular generating function, if any, that is most useful in a given context will depend upon the nature of the sequence and the details of the problem being addressed.\nGenerating functions are sometimes called generating series, in that a series of terms can be said to be the generator of its sequence of term coefficients.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Generating_function",
+      "categories": [],
+      "mathDomain": "Combinatorics"
+    },
+    {
+      "id": "Proof_theory",
+      "title": "Proof theory",
+      "extract": "Proof theory is a major branch of mathematical logic and theoretical computer science within which proofs are treated as formal mathematical objects, facilitating their analysis by mathematical techniques. Proofs are typically presented as inductively defined data structures such as lists, boxed lists, or trees, which are constructed according to the axioms and rules of inference of a given logical system. Consequently, proof theory is syntactic in nature, in contrast to model theory, which is semantic in nature.\nSome of the major areas of proof theory include structural proof theory, ordinal analysis, provability logic, proof-theoretic semantics, reverse mathematics, proof mining, automated theorem proving, and proof complexity. Much research also focuses on applications in computer science, linguistics, and philosophy.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Proof_theory",
+      "categories": [],
+      "mathDomain": "Mathematical logic"
+    },
+    {
+      "id": "Commutative_algebra",
+      "title": "Commutative algebra",
+      "extract": "Commutative algebra, first known as ideal theory, is the branch of algebra that studies commutative rings, their ideals, and modules over such rings. Both algebraic geometry and algebraic number theory build on commutative algebra. Prominent examples of commutative rings include polynomial rings; rings of algebraic integers, including the ordinary integers \n  \n    \n      \n        \n          Z\n        \n      \n    \n    {\\displaystyle \\mathbb {Z} }\n  \n; and p-adic integers.\nCommutative algebra is the main technical tool of algebraic geometry, and many results and concepts of commutative algebra are strongly related with geometrical concepts.\nThe study of rings that are not necessarily commutative is known as noncommutative algebra; it includes ring theory, representation theory, and the theory of Banach algebras.",
+      "url": "https://en.wikipedia.org/wiki/Commutative_algebra",
+      "categories": [],
+      "mathDomain": "Commutative algebra"
+    },
+    {
+      "id": "Differential_equation",
+      "title": "Differential equation",
+      "extract": "In mathematics, a differential equation is an equation that relates one or more unknown functions and their derivatives. In applications, the functions generally represent physical quantities, the derivatives represent their rates of change, and the differential equation defines a relationship between the two. Such relations are common in mathematical models and scientific laws; therefore, differential equations play a prominent role in many disciplines including engineering, physics, economics, and biology.\nThe study of differential equations consists mainly of the study of their solutions (the set of functions that satisfy each equation), and of the properties of their solutions. Only the simplest differential equations are solvable by explicit formulas; however, many properties of solutions of a given differential equation may be determined without computing them exactly.\nOften when a closed-form expression for the solutions is not available, solutions may be approximated numerically using computers, and many numerical methods have been developed to determine solutions with a given degree of accuracy. The theory of dynamical systems analyzes the qualitative aspects of solutions, such as their average behavior over a long time interval.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Differential_equation",
+      "categories": [],
+      "mathDomain": "Differential equations"
+    },
+    {
+      "id": "Representation_theory",
+      "title": "Representation theory",
+      "extract": "Representation theory is a branch of mathematics that studies abstract algebraic structures by representing their elements as linear transformations of vector spaces, and studies modules over these abstract algebraic structures. In essence, a representation makes an abstract algebraic object more concrete by describing its elements by matrices and their algebraic operations (for example, matrix addition, matrix multiplication).\nThe algebraic objects amenable to such a description include groups, associative algebras and Lie algebras. The most prominent of these (and historically the first) is the representation theory of groups, in which elements of a group are represented by invertible matrices such that the group operation is matrix multiplication.\nRepresentation theory is a useful method because it reduces problems in abstract algebra to problems in linear algebra, a subject that is well understood. Representations of more abstract objects in terms of familiar linear algebra can elucidate properties and simplify calculations within more abstract theories. For instance, representing a group by an infinite-dimensional Hilbert space allows methods of analysis to be applied to the theory of groups. Furthermore, representation theory is important in physics because it can describe how the symmetry group of a physical system affects the solutions of equations describing that system.\nRepresentation theory is pervasive across fields of mathematics. The applications of representation theory are diverse. In addition to its impact on algebra, representation theory\n\ngeneralizes Fourier analysis via harmonic analysis,\nis connected to geometry via invariant theory and the Erlangen program,\nhas an impact in number theory via automorphic forms and the Langlands program.\nThere are many approaches to representation theory: the same objects can be studied using methods from algebraic geometry, module theory, analytic number theory, differential geometry, operator theory, algebraic combinatorics and topology.\nThe success of representation theory has led to numerous generalizations. One of the most general is in category theory. The algebraic objects to which representation theory applies can be viewed as particular kinds of categories, and the representations as functors from the object category to the category of vector spaces. This description points to two natural generalizations: first, the algebraic objects can be replaced by more general categories; second, the target category of vector spaces can be replaced by other well-understood categories.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Representation_theory",
+      "categories": [],
+      "mathDomain": "Representation theory"
+    },
+    {
+      "id": "Information_theory",
+      "title": "Information theory",
+      "extract": "Information theory is the mathematical study of the quantification, storage, and communication of a particular type of mathematically defined information. The field was established and formalized by Claude Shannon in the 1940s, though early contributions were made in the 1920s through the works of Harry Nyquist and Ralph Hartley. \nInformation theory was initially formed in the context of telecommunication but soon found a wide range of other applications. It is now at the intersection of mathematics, statistics and computer science, and has applications in diverse fields ranging from electrical engineering and physics to neurobiology.\nAs a simple example of the concept, if one flips a fair coin and does not yet know the outcome (heads or tails), then they lack a certain amount of information. After looking at the coin, they gain information about the outcome. For a fair coin, the probability of either heads or tails is 1/2 and the amount of information is expressed as \n  \n    \n      \n        −\n        \n          log\n          \n            2\n          \n        \n        ⁡\n        (\n        1\n        \n          /\n        \n        2\n        )\n      \n    \n    {\\displaystyle -\\log _{2}(1/2)}\n  \n = 1 bit of information.\nA key concept in information theory is information entropy. In Shannon's formulation entropy is equal to the lack of information about an event. In the above coin flip example, the entropy in the case where you don't know the outcome is 1 bit. When you know the outcome after the coin has landed, the entropy is zero because you have gained one bit \nInformation theory has been used in a wide range of applications, such as source coding/data compression (e.g. for ZIP files), and channel coding/error detection and correction (e.g. for DSL). Its impact has been crucial to the success of the Voyager missions to deep space, the invention of the compact disc, the feasibility of mobile phones and the development of the Internet and artificial intelligence. The theory has also found applications in other areas, including statistical inference, cryptography, neurobiology, perception, signal processing, linguistics, the evolution and function of molecular codes (bioinformatics), thermal physics, molecular dynamics, black holes, quantum computing, information retrieval, intelligence gathering, plagiarism detection, pattern recognition, anomaly detection, the analysis of music, art creation, imaging system design, study of outer space, the dimensionality of space, and epistemology.",
+      "url": "https://en.wikipedia.org/wiki/Information_theory",
+      "categories": [
+        "Claude Shannon",
+        "Computer-related introductions in 1948",
+        "Cybernetics",
+        "Data compression",
+        "Formal sciences",
+        "History of logic",
+        "History of mathematics",
+        "Information Age",
+        "Information theory"
+      ],
+      "mathDomain": "Information theory"
+    },
+    {
+      "id": "Numerical_analysis",
+      "title": "Numerical analysis",
+      "extract": "Numerical analysis is the study of algorithms for the problems of continuous mathematics.  These algorithms involve real or complex variables (in contrast to discrete mathematics), and typically use numerical approximation in addition to symbolic manipulation.\nNumerical analysis finds application in all fields of engineering and the physical sciences, and in the 21st century also the life and social sciences like economics, medicine, business and even the arts. Current growth in computing power has enabled the use of more complex numerical analysis, providing detailed and realistic mathematical models in science and engineering. Examples of numerical analysis include: ordinary differential equations as found in celestial mechanics (predicting the motions of planets, stars and galaxies), numerical linear algebra in data analysis, and stochastic differential equations and Markov chains for simulating living cells in medicine and biology.\nBefore modern computers, numerical methods often relied on hand interpolation formulas, using data from large printed tables. Since the mid-20th century, computers calculate the required functions instead, but many of the same formulas continue to be used in software algorithms.\nThe numerical point of view goes back to the earliest mathematical writings. A tablet from the Yale Babylonian Collection (YBC 7289), gives a sexagesimal numerical approximation of the square root of 2, the length of the diagonal in a unit square.\nNumerical analysis continues this long tradition: rather than giving exact symbolic answers translated into digits and applicable only to real-world measurements, approximate solutions within specified error bounds are used.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Numerical_analysis",
+      "categories": [],
+      "mathDomain": "Numerical analysis"
+    },
+    {
+      "id": "Homological_algebra",
+      "title": "Homological algebra",
+      "extract": "Homological algebra is the branch of mathematics that studies homology in a general algebraic setting. It is a relatively young discipline, whose origins can be traced to investigations in combinatorial topology (a precursor to algebraic topology) and abstract algebra (theory of modules and syzygies) at the end of the 19th century, chiefly by Henri Poincaré and David Hilbert. \nHomological algebra is the study of homological functors and the intricate algebraic structures that they entail; its development was closely intertwined with the emergence of category theory. A central concept is that of chain complexes, which can be studied through their homology and cohomology.\nHomological algebra affords the means to extract information contained in these complexes and present it in the form of homological invariants of rings, modules, topological spaces, and other \"tangible\" mathematical objects. A spectral sequence is a powerful tool for this.\nIt has played an enormous role in algebraic topology. Its influence has gradually expanded and presently includes commutative algebra, algebraic geometry, algebraic number theory, representation theory, mathematical physics, operator algebras, complex analysis, and the theory of partial differential equations. K-theory is an independent discipline which draws upon methods of homological algebra, as does the noncommutative geometry of Alain Connes.\n\n",
+      "url": "https://en.wikipedia.org/wiki/Homological_algebra",
+      "categories": [],
+      "mathDomain": "Homological algebra"
+    }
+  ],
+  "edges": [
+    {
+      "source": "Banach_space",
+      "target": "Category_theory"
+    },
+    {
+      "source": "Banach_space",
+      "target": "Continuous_function"
+    },
+    {
+      "source": "Banach_space",
+      "target": "Derivative"
+    },
+    {
+      "source": "Banach_space",
+      "target": "Field_(mathematics)"
+    },
+    {
+      "source": "Banach_space",
+      "target": "Functional_analysis"
+    },
+    {
+      "source": "Banach_space",
+      "target": "Hilbert_space"
+    },
+    {
+      "source": "Banach_space",
+      "target": "Holomorphic_function"
+    },
+    {
+      "source": "Banach_space",
+      "target": "Homeomorphism"
+    },
+    {
+      "source": "Banach_space",
+      "target": "Inner_product_space"
+    },
+    {
+      "source": "Banach_space",
+      "target": "Measure_(mathematics)"
+    },
+    {
+      "source": "Banach_space",
+      "target": "Metric_space"
+    },
+    {
+      "source": "Banach_space",
+      "target": "Operator_theory"
+    },
+    {
+      "source": "Banach_space",
+      "target": "Partial_differential_equation"
+    },
+    {
+      "source": "Banach_space",
+      "target": "Topological_space"
+    },
+    {
+      "source": "Banach_space",
+      "target": "Topology"
+    },
+    {
+      "source": "Banach_space",
+      "target": "Vector_space"
+    },
+    {
+      "source": "Complex_analysis",
+      "target": "Algebraic_geometry"
+    },
+    {
+      "source": "Complex_analysis",
+      "target": "Analytic_number_theory"
+    },
+    {
+      "source": "Functional_analysis",
+      "target": "Algebraic_geometry"
+    },
+    {
+      "source": "Functional_analysis",
+      "target": "Algebraic_number_theory"
+    },
+    {
+      "source": "Functional_analysis",
+      "target": "Algebraic_topology"
+    },
+    {
+      "source": "Functional_analysis",
+      "target": "Analytic_number_theory"
+    },
+    {
+      "source": "Functional_analysis",
+      "target": "Category_theory"
+    },
+    {
+      "source": "Functional_analysis",
+      "target": "Combinatorics"
+    },
+    {
+      "source": "Functional_analysis",
+      "target": "Commutative_algebra"
+    },
+    {
+      "source": "Functional_analysis",
+      "target": "Complex_analysis"
+    },
+    {
+      "source": "Functional_analysis",
+      "target": "Continuous_function"
+    },
+    {
+      "source": "Functional_analysis",
+      "target": "Derivative"
+    },
+    {
+      "source": "Functional_analysis",
+      "target": "Differential_equation"
+    },
+    {
+      "source": "Functional_analysis",
+      "target": "Differential_geometry"
+    },
+    {
+      "source": "Functional_analysis",
+      "target": "Graph_theory"
+    },
+    {
+      "source": "Functional_analysis",
+      "target": "Group_theory"
+    },
+    {
+      "source": "Functional_analysis",
+      "target": "Hilbert_space"
+    },
+    {
+      "source": "Functional_analysis",
+      "target": "Homological_algebra"
+    },
+    {
+      "source": "Functional_analysis",
+      "target": "Information_theory"
+    },
+    {
+      "source": "Functional_analysis",
+      "target": "Inner_product_space"
+    },
+    {
+      "source": "Functional_analysis",
+      "target": "Linear_algebra"
+    },
+    {
+      "source": "Functional_analysis",
+      "target": "Mathematical_logic"
+    },
+    {
+      "source": "Functional_analysis",
+      "target": "Measure_(mathematics)"
+    },
+    {
+      "source": "Functional_analysis",
+      "target": "Number_theory"
+    },
+    {
+      "source": "Functional_analysis",
+      "target": "Numerical_analysis"
+    },
+    {
+      "source": "Functional_analysis",
+      "target": "Operator_theory"
+    },
+    {
+      "source": "Functional_analysis",
+      "target": "Partial_differential_equation"
+    },
+    {
+      "source": "Functional_analysis",
+      "target": "Probability_theory"
+    },
+    {
+      "source": "Functional_analysis",
+      "target": "Real_analysis"
+    },
+    {
+      "source": "Functional_analysis",
+      "target": "Representation_theory"
+    },
+    {
+      "source": "Functional_analysis",
+      "target": "Set_theory"
+    },
+    {
+      "source": "Functional_analysis",
+      "target": "Statistics"
+    },
+    {
+      "source": "Functional_analysis",
+      "target": "Topological_space"
+    },
+    {
+      "source": "Functional_analysis",
+      "target": "Topology"
+    },
+    {
+      "source": "Functional_analysis",
+      "target": "Vector_space"
+    },
+    {
+      "source": "Holomorphic_function",
+      "target": "Complex_analysis"
+    },
+    {
+      "source": "Holomorphic_function",
+      "target": "Continuous_function"
+    },
+    {
+      "source": "Holomorphic_function",
+      "target": "Derivative"
+    },
+    {
+      "source": "Holomorphic_function",
+      "target": "Functional_analysis"
+    },
+    {
+      "source": "Holomorphic_function",
+      "target": "Partial_differential_equation"
+    },
+    {
+      "source": "Holomorphic_function",
+      "target": "Riemann_surface"
+    },
+    {
+      "source": "Real_analysis",
+      "target": "Banach_space"
+    },
+    {
+      "source": "Real_analysis",
+      "target": "Complex_analysis"
+    },
+    {
+      "source": "Real_analysis",
+      "target": "Continuous_function"
+    },
+    {
+      "source": "Real_analysis",
+      "target": "Derivative"
+    },
+    {
+      "source": "Real_analysis",
+      "target": "Differential_equation"
+    },
+    {
+      "source": "Real_analysis",
+      "target": "Differential_geometry"
+    },
+    {
+      "source": "Real_analysis",
+      "target": "Field_(mathematics)"
+    },
+    {
+      "source": "Real_analysis",
+      "target": "Hilbert_space"
+    },
+    {
+      "source": "Real_analysis",
+      "target": "Holomorphic_function"
+    },
+    {
+      "source": "Real_analysis",
+      "target": "Mathematical_logic"
+    },
+    {
+      "source": "Real_analysis",
+      "target": "Measure_(mathematics)"
+    },
+    {
+      "source": "Real_analysis",
+      "target": "Metric_space"
+    },
+    {
+      "source": "Real_analysis",
+      "target": "Number_theory"
+    },
+    {
+      "source": "Real_analysis",
+      "target": "Operator_theory"
+    },
+    {
+      "source": "Real_analysis",
+      "target": "Partial_differential_equation"
+    },
+    {
+      "source": "Real_analysis",
+      "target": "Probability_theory"
+    },
+    {
+      "source": "Real_analysis",
+      "target": "Representation_theory"
+    },
+    {
+      "source": "Real_analysis",
+      "target": "Set_theory"
+    },
+    {
+      "source": "Real_analysis",
+      "target": "Statistics"
+    },
+    {
+      "source": "Real_analysis",
+      "target": "Topological_space"
+    },
+    {
+      "source": "Real_analysis",
+      "target": "Topology"
+    },
+    {
+      "source": "Vector_space",
+      "target": "Algebraic_geometry"
+    },
+    {
+      "source": "Vector_space",
+      "target": "Algebraic_number_theory"
+    },
+    {
+      "source": "Vector_space",
+      "target": "Continuous_function"
+    },
+    {
+      "source": "Vector_space",
+      "target": "Derivative"
+    },
+    {
+      "source": "Vector_space",
+      "target": "Differential_equation"
+    },
+    {
+      "source": "Vector_space",
+      "target": "Eigenvalues_and_eigenvectors"
+    },
+    {
+      "source": "Vector_space",
+      "target": "Field_(mathematics)"
+    },
+    {
+      "source": "Vector_space",
+      "target": "Group_theory"
+    },
+    {
+      "source": "Vector_space",
+      "target": "Hilbert_space"
+    },
+    {
+      "source": "Vector_space",
+      "target": "Homeomorphism"
+    },
+    {
+      "source": "Vector_space",
+      "target": "Inner_product_space"
+    },
+    {
+      "source": "Vector_space",
+      "target": "Linear_algebra"
+    },
+    {
+      "source": "Ring_theory",
+      "target": "Algebraic_geometry"
+    },
+    {
+      "source": "Ring_theory",
+      "target": "Algebraic_number_theory"
+    },
+    {
+      "source": "Ring_theory",
+      "target": "Algebraic_topology"
+    },
+    {
+      "source": "Ring_theory",
+      "target": "Category_theory"
+    },
+    {
+      "source": "Ring_theory",
+      "target": "Commutative_algebra"
+    },
+    {
+      "source": "Ring_theory",
+      "target": "Differential_geometry"
+    },
+    {
+      "source": "Ring_theory",
+      "target": "Eigenvalues_and_eigenvectors"
+    },
+    {
+      "source": "Ring_theory",
+      "target": "Field_(mathematics)"
+    },
+    {
+      "source": "Ring_theory",
+      "target": "Group_theory"
+    },
+    {
+      "source": "Ring_theory",
+      "target": "Hilbert_space"
+    },
+    {
+      "source": "Ring_theory",
+      "target": "Homological_algebra"
+    },
+    {
+      "source": "Ring_theory",
+      "target": "Inner_product_space"
+    },
+    {
+      "source": "Ring_theory",
+      "target": "Linear_algebra"
+    },
+    {
+      "source": "Ring_theory",
+      "target": "Manifold"
+    },
+    {
+      "source": "Ring_theory",
+      "target": "Matrix_(mathematics)"
+    },
+    {
+      "source": "Ring_theory",
+      "target": "Module_(mathematics)"
+    },
+    {
+      "source": "Ring_theory",
+      "target": "Prime_number"
+    },
+    {
+      "source": "Ring_theory",
+      "target": "Representation_theory"
+    },
+    {
+      "source": "Ring_theory",
+      "target": "Topology"
+    },
+    {
+      "source": "Ring_theory",
+      "target": "Vector_space"
+    },
+    {
+      "source": "Module_(mathematics)",
+      "target": "Algebraic_geometry"
+    },
+    {
+      "source": "Module_(mathematics)",
+      "target": "Algebraic_number_theory"
+    },
+    {
+      "source": "Module_(mathematics)",
+      "target": "Algebraic_topology"
+    },
+    {
+      "source": "Module_(mathematics)",
+      "target": "Commutative_algebra"
+    },
+    {
+      "source": "Module_(mathematics)",
+      "target": "Field_(mathematics)"
+    },
+    {
+      "source": "Module_(mathematics)",
+      "target": "Group_theory"
+    },
+    {
+      "source": "Module_(mathematics)",
+      "target": "Homological_algebra"
+    },
+    {
+      "source": "Module_(mathematics)",
+      "target": "Linear_algebra"
+    },
+    {
+      "source": "Module_(mathematics)",
+      "target": "Matrix_(mathematics)"
+    },
+    {
+      "source": "Module_(mathematics)",
+      "target": "Modular_arithmetic"
+    },
+    {
+      "source": "Combinatorics",
+      "target": "Algebraic_geometry"
+    },
+    {
+      "source": "Combinatorics",
+      "target": "Algebraic_number_theory"
+    },
+    {
+      "source": "Combinatorics",
+      "target": "Algebraic_topology"
+    },
+    {
+      "source": "Combinatorics",
+      "target": "Analytic_number_theory"
+    },
+    {
+      "source": "Combinatorics",
+      "target": "Category_theory"
+    },
+    {
+      "source": "Combinatorics",
+      "target": "Commutative_algebra"
+    },
+    {
+      "source": "Combinatorics",
+      "target": "Complex_analysis"
+    },
+    {
+      "source": "Combinatorics",
+      "target": "Computability_theory"
+    },
+    {
+      "source": "Combinatorics",
+      "target": "Differential_equation"
+    },
+    {
+      "source": "Combinatorics",
+      "target": "Differential_geometry"
+    },
+    {
+      "source": "Combinatorics",
+      "target": "Dynamical_system"
+    },
+    {
+      "source": "Combinatorics",
+      "target": "Graph_theory"
+    },
+    {
+      "source": "Combinatorics",
+      "target": "Group_theory"
+    },
+    {
+      "source": "Combinatorics",
+      "target": "Homological_algebra"
+    },
+    {
+      "source": "Combinatorics",
+      "target": "Information_theory"
+    },
+    {
+      "source": "Combinatorics",
+      "target": "Linear_algebra"
+    },
+    {
+      "source": "Combinatorics",
+      "target": "Mathematical_logic"
+    },
+    {
+      "source": "Combinatorics",
+      "target": "Measure_(mathematics)"
+    },
+    {
+      "source": "Combinatorics",
+      "target": "Number_theory"
+    },
+    {
+      "source": "Combinatorics",
+      "target": "Numerical_analysis"
+    },
+    {
+      "source": "Combinatorics",
+      "target": "Permutation"
+    },
+    {
+      "source": "Combinatorics",
+      "target": "Probability_theory"
+    },
+    {
+      "source": "Combinatorics",
+      "target": "Real_analysis"
+    },
+    {
+      "source": "Combinatorics",
+      "target": "Representation_theory"
+    },
+    {
+      "source": "Combinatorics",
+      "target": "Set_theory"
+    },
+    {
+      "source": "Combinatorics",
+      "target": "Statistics"
+    },
+    {
+      "source": "Homeomorphism",
+      "target": "Algebraic_topology"
+    },
+    {
+      "source": "Homeomorphism",
+      "target": "Continuous_function"
+    },
+    {
+      "source": "Homeomorphism",
+      "target": "Fundamental_group"
+    },
+    {
+      "source": "Homeomorphism",
+      "target": "Homology_(mathematics)"
+    },
+    {
+      "source": "Homeomorphism",
+      "target": "Manifold"
+    },
+    {
+      "source": "Homeomorphism",
+      "target": "Metric_space"
+    },
+    {
+      "source": "Homeomorphism",
+      "target": "Topological_space"
+    },
+    {
+      "source": "Homeomorphism",
+      "target": "Topology"
+    },
+    {
+      "source": "Modular_arithmetic",
+      "target": "Algebraic_number_theory"
+    },
+    {
+      "source": "Modular_arithmetic",
+      "target": "Analytic_number_theory"
+    },
+    {
+      "source": "Modular_arithmetic",
+      "target": "Diophantine_equation"
+    },
+    {
+      "source": "Modular_arithmetic",
+      "target": "Field_(mathematics)"
+    },
+    {
+      "source": "Modular_arithmetic",
+      "target": "Group_theory"
+    },
+    {
+      "source": "Modular_arithmetic",
+      "target": "Linear_algebra"
+    },
+    {
+      "source": "Modular_arithmetic",
+      "target": "Number_theory"
+    },
+    {
+      "source": "Modular_arithmetic",
+      "target": "Prime_number"
+    },
+    {
+      "source": "Modular_arithmetic",
+      "target": "Ring_theory"
+    },
+    {
+      "source": "Number_theory",
+      "target": "Algebraic_geometry"
+    },
+    {
+      "source": "Number_theory",
+      "target": "Algebraic_number_theory"
+    },
+    {
+      "source": "Number_theory",
+      "target": "Algebraic_topology"
+    },
+    {
+      "source": "Number_theory",
+      "target": "Analytic_number_theory"
+    },
+    {
+      "source": "Number_theory",
+      "target": "Category_theory"
+    },
+    {
+      "source": "Number_theory",
+      "target": "Commutative_algebra"
+    },
+    {
+      "source": "Number_theory",
+      "target": "Complex_analysis"
+    },
+    {
+      "source": "Number_theory",
+      "target": "Computability_theory"
+    },
+    {
+      "source": "Number_theory",
+      "target": "Differential_equation"
+    },
+    {
+      "source": "Number_theory",
+      "target": "Differential_geometry"
+    },
+    {
+      "source": "Number_theory",
+      "target": "Diophantine_equation"
+    },
+    {
+      "source": "Topology",
+      "target": "Algebraic_geometry"
+    },
+    {
+      "source": "Topology",
+      "target": "Algebraic_number_theory"
+    },
+    {
+      "source": "Topology",
+      "target": "Algebraic_topology"
+    },
+    {
+      "source": "Topology",
+      "target": "Analytic_number_theory"
+    },
+    {
+      "source": "Topology",
+      "target": "Category_theory"
+    },
+    {
+      "source": "Topology",
+      "target": "Combinatorics"
+    },
+    {
+      "source": "Topology",
+      "target": "Commutative_algebra"
+    },
+    {
+      "source": "Topology",
+      "target": "Complex_analysis"
+    },
+    {
+      "source": "Topology",
+      "target": "Continuous_function"
+    },
+    {
+      "source": "Topology",
+      "target": "Differential_equation"
+    },
+    {
+      "source": "Topology",
+      "target": "Differential_geometry"
+    },
+    {
+      "source": "Topology",
+      "target": "Fundamental_group"
+    },
+    {
+      "source": "Topology",
+      "target": "Graph_theory"
+    },
+    {
+      "source": "Topology",
+      "target": "Group_theory"
+    },
+    {
+      "source": "Topology",
+      "target": "Homological_algebra"
+    },
+    {
+      "source": "Topology",
+      "target": "Homology_(mathematics)"
+    },
+    {
+      "source": "Topology",
+      "target": "Information_theory"
+    },
+    {
+      "source": "Topology",
+      "target": "Linear_algebra"
+    },
+    {
+      "source": "Topology",
+      "target": "Manifold"
+    },
+    {
+      "source": "Topology",
+      "target": "Mathematical_logic"
+    },
+    {
+      "source": "Topology",
+      "target": "Measure_(mathematics)"
+    },
+    {
+      "source": "Topology",
+      "target": "Metric_space"
+    },
+    {
+      "source": "Topology",
+      "target": "Number_theory"
+    },
+    {
+      "source": "Topology",
+      "target": "Numerical_analysis"
+    },
+    {
+      "source": "Topology",
+      "target": "Probability_theory"
+    },
+    {
+      "source": "Topology",
+      "target": "Set_theory"
+    },
+    {
+      "source": "Topology",
+      "target": "Statistics"
+    },
+    {
+      "source": "Topology",
+      "target": "Topological_space"
+    },
+    {
+      "source": "Topology",
+      "target": "Vector_space"
+    },
+    {
+      "source": "Topological_space",
+      "target": "Algebraic_topology"
+    },
+    {
+      "source": "Topological_space",
+      "target": "Category_theory"
+    },
+    {
+      "source": "Topological_space",
+      "target": "Continuous_function"
+    },
+    {
+      "source": "Topological_space",
+      "target": "Fundamental_group"
+    },
+    {
+      "source": "Topological_space",
+      "target": "Graph_theory"
+    },
+    {
+      "source": "Topological_space",
+      "target": "Hilbert_space"
+    },
+    {
+      "source": "Topological_space",
+      "target": "Homology_(mathematics)"
+    },
+    {
+      "source": "Topological_space",
+      "target": "Manifold"
+    },
+    {
+      "source": "Topological_space",
+      "target": "Metric_space"
+    },
+    {
+      "source": "Topological_space",
+      "target": "Number_theory"
+    },
+    {
+      "source": "Riemannian_manifold",
+      "target": "Algebraic_geometry"
+    },
+    {
+      "source": "Riemannian_manifold",
+      "target": "Differential_geometry"
+    },
+    {
+      "source": "Riemannian_manifold",
+      "target": "Group_theory"
+    },
+    {
+      "source": "Riemannian_manifold",
+      "target": "Hilbert_space"
+    },
+    {
+      "source": "Riemannian_manifold",
+      "target": "Inner_product_space"
+    },
+    {
+      "source": "Riemannian_manifold",
+      "target": "Manifold"
+    },
+    {
+      "source": "Riemannian_manifold",
+      "target": "Measure_(mathematics)"
+    },
+    {
+      "source": "Riemannian_manifold",
+      "target": "Metric_space"
+    },
+    {
+      "source": "Riemannian_manifold",
+      "target": "Riemann_surface"
+    },
+    {
+      "source": "Algebraic_number_theory",
+      "target": "Algebraic_geometry"
+    },
+    {
+      "source": "Algebraic_number_theory",
+      "target": "Analytic_number_theory"
+    },
+    {
+      "source": "Algebraic_number_theory",
+      "target": "Commutative_algebra"
+    },
+    {
+      "source": "Algebraic_number_theory",
+      "target": "Diophantine_equation"
+    },
+    {
+      "source": "Algebraic_number_theory",
+      "target": "Field_(mathematics)"
+    },
+    {
+      "source": "Algebraic_number_theory",
+      "target": "Homological_algebra"
+    },
+    {
+      "source": "Algebraic_geometry",
+      "target": "Algebraic_topology"
+    },
+    {
+      "source": "Algebraic_geometry",
+      "target": "Analytic_number_theory"
+    },
+    {
+      "source": "Algebraic_geometry",
+      "target": "Category_theory"
+    },
+    {
+      "source": "Algebraic_geometry",
+      "target": "Commutative_algebra"
+    },
+    {
+      "source": "Algebraic_geometry",
+      "target": "Continuous_function"
+    },
+    {
+      "source": "Algebraic_geometry",
+      "target": "Differential_equation"
+    },
+    {
+      "source": "Algebraic_geometry",
+      "target": "Differential_geometry"
+    },
+    {
+      "source": "Algebraic_geometry",
+      "target": "Eigenvalues_and_eigenvectors"
+    },
+    {
+      "source": "Algebraic_geometry",
+      "target": "Field_(mathematics)"
+    },
+    {
+      "source": "Algebraic_geometry",
+      "target": "Graph_theory"
+    },
+    {
+      "source": "Algebraic_geometry",
+      "target": "Group_theory"
+    },
+    {
+      "source": "Algebraic_geometry",
+      "target": "Hilbert_space"
+    },
+    {
+      "source": "Algebraic_geometry",
+      "target": "Homological_algebra"
+    },
+    {
+      "source": "Algebraic_geometry",
+      "target": "Information_theory"
+    },
+    {
+      "source": "Algebraic_geometry",
+      "target": "Inner_product_space"
+    },
+    {
+      "source": "Algebraic_geometry",
+      "target": "Linear_algebra"
+    },
+    {
+      "source": "Algebraic_geometry",
+      "target": "Mathematical_logic"
+    },
+    {
+      "source": "Algebraic_geometry",
+      "target": "Matrix_(mathematics)"
+    },
+    {
+      "source": "Algebraic_geometry",
+      "target": "Measure_(mathematics)"
+    },
+    {
+      "source": "Algebraic_geometry",
+      "target": "Numerical_analysis"
+    },
+    {
+      "source": "Algebraic_geometry",
+      "target": "Probability_theory"
+    },
+    {
+      "source": "Mathematical_logic",
+      "target": "Algebraic_number_theory"
+    },
+    {
+      "source": "Mathematical_logic",
+      "target": "Algebraic_topology"
+    },
+    {
+      "source": "Mathematical_logic",
+      "target": "Analytic_number_theory"
+    },
+    {
+      "source": "Mathematical_logic",
+      "target": "Category_theory"
+    },
+    {
+      "source": "Mathematical_logic",
+      "target": "Commutative_algebra"
+    },
+    {
+      "source": "Mathematical_logic",
+      "target": "Complex_analysis"
+    },
+    {
+      "source": "Mathematical_logic",
+      "target": "Computability_theory"
+    },
+    {
+      "source": "Mathematical_logic",
+      "target": "Continuous_function"
+    },
+    {
+      "source": "Mathematical_logic",
+      "target": "Differential_equation"
+    },
+    {
+      "source": "Mathematical_logic",
+      "target": "Differential_geometry"
+    },
+    {
+      "source": "Mathematical_logic",
+      "target": "Graph_theory"
+    },
+    {
+      "source": "Mathematical_logic",
+      "target": "Group_theory"
+    },
+    {
+      "source": "Mathematical_logic",
+      "target": "Homological_algebra"
+    },
+    {
+      "source": "Mathematical_logic",
+      "target": "Information_theory"
+    },
+    {
+      "source": "Mathematical_logic",
+      "target": "Linear_algebra"
+    },
+    {
+      "source": "Set_theory",
+      "target": "Algebraic_geometry"
+    },
+    {
+      "source": "Set_theory",
+      "target": "Algebraic_number_theory"
+    },
+    {
+      "source": "Set_theory",
+      "target": "Algebraic_topology"
+    },
+    {
+      "source": "Set_theory",
+      "target": "Analytic_number_theory"
+    },
+    {
+      "source": "Set_theory",
+      "target": "Category_theory"
+    },
+    {
+      "source": "Set_theory",
+      "target": "Commutative_algebra"
+    },
+    {
+      "source": "Set_theory",
+      "target": "Complex_analysis"
+    },
+    {
+      "source": "Set_theory",
+      "target": "Computability_theory"
+    },
+    {
+      "source": "Set_theory",
+      "target": "Differential_equation"
+    },
+    {
+      "source": "Set_theory",
+      "target": "Differential_geometry"
+    },
+    {
+      "source": "Set_theory",
+      "target": "Graph_theory"
+    },
+    {
+      "source": "Set_theory",
+      "target": "Group_theory"
+    },
+    {
+      "source": "Set_theory",
+      "target": "Homological_algebra"
+    },
+    {
+      "source": "Set_theory",
+      "target": "Information_theory"
+    },
+    {
+      "source": "Set_theory",
+      "target": "Linear_algebra"
+    },
+    {
+      "source": "Set_theory",
+      "target": "Manifold"
+    },
+    {
+      "source": "Set_theory",
+      "target": "Mathematical_logic"
+    },
+    {
+      "source": "Set_theory",
+      "target": "Measure_(mathematics)"
+    },
+    {
+      "source": "Set_theory",
+      "target": "Model_theory"
+    },
+    {
+      "source": "Set_theory",
+      "target": "Number_theory"
+    },
+    {
+      "source": "Set_theory",
+      "target": "Numerical_analysis"
+    },
+    {
+      "source": "Set_theory",
+      "target": "Probability_theory"
+    },
+    {
+      "source": "Set_theory",
+      "target": "Proof_theory"
+    },
+    {
+      "source": "Generating_function",
+      "target": "Combinatorics"
+    },
+    {
+      "source": "Generating_function",
+      "target": "Number_theory"
+    },
+    {
+      "source": "Generating_function",
+      "target": "Riemann_zeta_function"
+    },
+    {
+      "source": "Generating_function",
+      "target": "Vector_space"
+    },
+    {
+      "source": "Proof_theory",
+      "target": "Category_theory"
+    },
+    {
+      "source": "Proof_theory",
+      "target": "Computability_theory"
+    },
+    {
+      "source": "Proof_theory",
+      "target": "Information_theory"
+    },
+    {
+      "source": "Proof_theory",
+      "target": "Mathematical_logic"
+    },
+    {
+      "source": "Proof_theory",
+      "target": "Model_theory"
+    },
+    {
+      "source": "Information_theory",
+      "target": "Algebraic_number_theory"
+    },
+    {
+      "source": "Information_theory",
+      "target": "Algebraic_topology"
+    },
+    {
+      "source": "Information_theory",
+      "target": "Analytic_number_theory"
+    },
+    {
+      "source": "Information_theory",
+      "target": "Category_theory"
+    },
+    {
+      "source": "Information_theory",
+      "target": "Commutative_algebra"
+    },
+    {
+      "source": "Information_theory",
+      "target": "Complex_analysis"
+    },
+    {
+      "source": "Information_theory",
+      "target": "Computability_theory"
+    },
+    {
+      "source": "Information_theory",
+      "target": "Differential_equation"
+    },
+    {
+      "source": "Information_theory",
+      "target": "Differential_geometry"
+    },
+    {
+      "source": "Information_theory",
+      "target": "Graph_theory"
+    },
+    {
+      "source": "Information_theory",
+      "target": "Group_theory"
+    },
+    {
+      "source": "Information_theory",
+      "target": "Homological_algebra"
+    },
+    {
+      "source": "Information_theory",
+      "target": "Linear_algebra"
+    },
+    {
+      "source": "Information_theory",
+      "target": "Measure_(mathematics)"
+    }
+  ]
 }

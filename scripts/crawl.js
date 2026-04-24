@@ -276,13 +276,18 @@ async function fetchArticlesBatch(titles) {
  * Batch-fetch outlinks for up to 50 articles at once.
  * Returns { title: [outlink titles] }
  */
+/**
+ * Batch-fetch outlinks for up to 5 articles at once.
+ * pllimit applies globally per request, not per article, so keep batches small.
+ * Returns { title: [outlink titles] }
+ */
 async function fetchOutlinksBatch(titles) {
   if (titles.length === 0) return {};
   const data = await wikiGet({
     action: "query",
     prop: "links",
     titles: titles.join("|"),
-    pllimit: "300",
+    pllimit: "max",   // 500 for anon; split evenly across articles in batch
     plnamespace: "0",
     redirects: "1",
   });
@@ -395,7 +400,7 @@ async function main() {
   // ── Phase 4: Fetch outlinks for edge building (batched 50 articles/request) ───
   console.log("\nPhase 4: Fetching outlinks for edge construction...");
   const articleTitles = articles.map((a) => a.title);
-  const OUTLINK_BATCH = 50;
+  const OUTLINK_BATCH = 5;   // pllimit is global per request, keep batches small
   const articleOutlinks = {};
   let batchNum = 0;
   const totalBatches = Math.ceil(articleTitles.length / OUTLINK_BATCH);
