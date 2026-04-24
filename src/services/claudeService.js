@@ -57,33 +57,29 @@ export async function analyseGraph({ nodes, edges, communities, centrality }) {
   const avgDegree =
     nodes.length > 0 ? ((edgeCount * 2) / nodes.length).toFixed(1) : 0;
 
-  const prompt = `You are analysing a permanent knowledge graph of mathematical concepts, built by systematically crawling Wikipedia's Mathematics category tree. The graph captures the epistemological structure of mathematics as encoded in Wikipedia's hyperlink network — not curated by a human, but emergent from how editors link mathematical articles.
+  const prompt = `You are a mathematician analysing the conceptual structure of mathematics through a knowledge graph of ${nodes.length} mathematical concepts and their relationships.
 
-GRAPH PROVENANCE:
-- Source: Wikipedia Mathematics category tree (systematic category-based harvest)
-- Scope: ${nodes.length} mathematical concept articles, ${edgeCount} hyperlink-derived edges
-- Average connectivity: ${avgDegree} edges per node
+The graph was built from Wikipedia articles, but your task is to explain the underlying mathematical reality — how these concepts genuinely depend on, generalise, or illuminate each other. Treat the graph topology as evidence of real mathematical relationships, not as an artifact of how a website happens to be organised.
 
-WIKIPEDIA CATEGORIES REPRESENTED (nodes per category):
-${domainBlock}
-
-LINK-TOPOLOGY COMMUNITIES (detected via label propagation on the hyperlink graph):
+CONCEPTS GROUPED BY DETECTED COMMUNITY (communities found via link-topology clustering):
 ${communityBlock}
 
-HIGHEST BETWEENNESS CENTRALITY (structural bridges — concepts that connect otherwise distant regions):
+CONCEPTS WITH HIGHEST STRUCTURAL CENTRALITY (ideas that mathematically connect the most other concepts):
 ${topBridges.join(", ")}
 
 TASK — return a single JSON object with three keys:
 
-1. "communities" — for each detected community, provide:
-   - "label": formal mathematical discipline name (2–5 words; use standard mathematical terminology, e.g., "Algebraic Topology", "Harmonic Analysis", "Combinatorial Number Theory")
-   - "explanation": 2 sentences explaining what mathematical tradition this community represents and why Wikipedia's link structure grouped these articles together
+1. "communities" — for each community, provide:
+   - "label": a precise mathematical discipline name (2–5 words, e.g. "Algebraic Topology", "Spectral Theory", "Analytic Number Theory")
+   - "explanation": 2 sentences describing what mathematical ideas unite this cluster and what deep conceptual thread runs through them — focus on the mathematics, not on how the articles are linked
 
-2. "bridges" — for the top 4 bridge articles by betweenness centrality, explain in 1–2 sentences what intellectual function makes them central connectors between different mathematical communities
+2. "bridges" — for each high-centrality concept, 1–2 sentences explaining what mathematical role makes it foundational across multiple fields: what does it generalise, what does it make possible, and which otherwise-separate areas of mathematics does it connect?
 
-3. "gaps" — identify 4–5 significant subfields of mathematics that appear to be absent or underrepresented in this graph. For each:
-   - "subfield": name of the absent or underrepresented mathematical area
-   - "reason": 1 sentence explaining why the category-based crawl likely missed it and what it would connect if included
+3. "gaps" — 4–5 important mathematical concepts or subfields that are absent from this graph but would deepen it. For each:
+   - "subfield": name of the missing area
+   - "reason": 1 sentence on what mathematical connections it would add — which existing concepts it links to and what it would reveal about the structure of the field
+
+Write as a mathematician explaining to another mathematician. Do not mention Wikipedia, link structure, or crawling.
 
 Return ONLY valid JSON, no prose before or after:
 {
