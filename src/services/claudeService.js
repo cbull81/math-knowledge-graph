@@ -1,16 +1,12 @@
 import Anthropic from "@anthropic-ai/sdk";
 
 /**
- * Sends the graph topology to Claude for:
- *   1. Community labeling with formal mathematical terminology
- *   2. Bridge node explanation
- *   3. Structural gap analysis (subfields absent from the graph)
+ * Sends the graph topology to Claude for community labeling and bridge analysis.
  *
  * Expected response schema:
  * {
  *   "communities": { "<id>": { "label": "...", "explanation": "..." } },
- *   "bridges": [{ "title": "...", "explanation": "..." }],
- *   "gaps": [{ "subfield": "...", "reason": "..." }]
+ *   "bridges": [{ "title": "...", "explanation": "..." }]
  * }
  */
 export async function analyseGraph({ nodes, edges, communities, centrality }) {
@@ -67,17 +63,13 @@ ${communityBlock}
 CONCEPTS WITH HIGHEST STRUCTURAL CENTRALITY (ideas that mathematically connect the most other concepts):
 ${topBridges.join(", ")}
 
-TASK — return a single JSON object with three keys:
+TASK — return a single JSON object with two keys:
 
 1. "communities" — for each community, provide:
    - "label": a precise mathematical discipline name (2–5 words, e.g. "Algebraic Topology", "Spectral Theory", "Analytic Number Theory")
    - "explanation": 2 sentences describing what mathematical ideas unite this cluster and what deep conceptual thread runs through them — focus on the mathematics, not on how the articles are linked
 
 2. "bridges" — for each high-centrality concept, 1–2 sentences explaining what mathematical role makes it foundational across multiple fields: what does it generalise, what does it make possible, and which otherwise-separate areas of mathematics does it connect?
-
-3. "gaps" — 4–5 important mathematical concepts or subfields that are absent from this graph but would deepen it. For each:
-   - "subfield": name of the missing area
-   - "reason": 1 sentence on what mathematical connections it would add — which existing concepts it links to and what it would reveal about the structure of the field
 
 Write as a mathematician explaining to another mathematician. Do not mention Wikipedia, link structure, or crawling.
 
@@ -89,9 +81,6 @@ Return ONLY valid JSON, no prose before or after:
   },
   "bridges": [
     { "title": "...", "explanation": "..." }
-  ],
-  "gaps": [
-    { "subfield": "...", "reason": "..." }
   ]
 }`;
 

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 import { computeRadialInitialPositions } from "../utils/graphFilters.js";
 
@@ -17,16 +17,147 @@ function nodeRadius(normCentrality, nodeId) {
   return 5 + (normCentrality[nodeId] || 0) * 12;
 }
 
-/**
- * Three-tier label visibility:
- *   Tier 1 (centrality > 0.65): always visible
- *   Tier 2 (centrality > 0.30): visible when zoom >= 1.5
- *   Tier 3 (rest): tooltip only (no persistent label)
- */
-function getLabelTier(normCentralityValue) {
-  if (normCentralityValue >= 0.65) return 1;
-  if (normCentralityValue >= 0.3) return 2;
+function getLabelTier(v) {
+  if (v >= 0.65) return 1;
+  if (v >= 0.3) return 2;
   return 3;
+}
+
+// O(n) hit test — check nodes in reverse paint order so top-most wins.
+function hitTest(offsetX, offsetY, simNodes, transform, normCentrality) {
+  const [wx, wy] = transform.invert([offsetX, offsetY]);
+  for (let i = simNodes.length - 1; i >= 0; i--) {
+    const n = simNodes[i];
+    if (n.x === undefined) continue;
+    const r = nodeRadius(normCentrality, n.id);
+    const dx = wx - n.x;
+    const dy = wy - n.y;
+    if (dx * dx + dy * dy <= r * r) return n;
+  }
+  return null;
+}
+
+// ── Full-canvas frame draw ─────────────────────────────────────────────────────
+// Batches fills by community color to minimise canvas state changes (~15 batches
+// instead of 400 individual fill() calls).
+function drawFrame(ctx, simNodes, simEdges, transform, normCentrality, communities, selectedId) {
+  const { width, height } = ctx.canvas;
+  const { x: tx, y: ty, k } = transform;
+
+  ctx.clearRect(0, 0, width, height);
+  ctx.save();
+  ctx.setTransform(k, 0, 0, k, tx, ty);
+
+  // Build neighbor set for selection dimming
+  const connected = new Set();
+  if (selectedId) {
+    connected.add(selectedId);
+    for (const { source: s, target: t } of simEdges) {
+      const sid = s?.id ?? s;
+      const tid = t?.id ?? t;
+      if (sid === selectedId) connected.add(tid);
+      if (tid === selectedId) connected.add(sid);
+    }
+  }
+
+  // ── Edges ──────────────────────────────────────────────────────────────────
+  const lw = 1 / k;
+  if (selectedId) {
+    // Dim edges first
+    ctx.beginPath();
+    ctx.strokeStyle = "#3A4468";
+    ctx.lineWidth = lw;
+    ctx.globalAlpha = 0.05;
+    for (const { source: s, target: t } of simEdges) {
+      if (!s?.x || !t?.x) continue;
+      if (!connected.has(s.id) || !connected.has(t.id)) {
+        ctx.moveTo(s.x, s.y);
+        ctx.lineTo(t.x, t.y);
+      }
+    }
+    ctx.stroke();
+    // Highlighted edges
+    ctx.beginPath();
+    ctx.strokeStyle = "#6888A8";
+    ctx.lineWidth = 1.5 / k;
+    ctx.globalAlpha = 0.65;
+    for (const { source: s, target: t } of simEdges) {
+      if (!s?.x || !t?.x) continue;
+      if (connected.has(s.id) && connected.has(t.id)) {
+        ctx.moveTo(s.x, s.y);
+        ctx.lineTo(t.x, t.y);
+      }
+    }
+    ctx.stroke();
+  } else {
+    ctx.beginPath();
+    ctx.strokeStyle = "#3A4468";
+    ctx.lineWidth = lw;
+    ctx.globalAlpha = 0.4;
+    for (const { source: s, target: t } of simEdges) {
+      if (!s?.x || !t?.x) continue;
+      ctx.moveTo(s.x, s.y);
+      ctx.lineTo(t.x, t.y);
+    }
+    ctx.stroke();
+  }
+
+  // ── Node fills — batched by (color, alpha) ─────────────────────────────────
+  const colorGroups = {};
+  for (const node of simNodes) {
+    if (node.x === undefined) continue;
+    const active = !selectedId || connected.has(node.id);
+    const alpha = active ? 1 : 0.07;
+    const color = communityColor(communities[node.id] ?? 0);
+    const key = `${alpha}_${color}`;
+    if (!colorGroups[key]) colorGroups[key] = { alpha, color, nodes: [] };
+    colorGroups[key].nodes.push(node);
+  }
+
+  for (const { alpha, color, nodes: group } of Object.values(colorGroups)) {
+    ctx.globalAlpha = alpha;
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    for (const node of group) {
+      const r = nodeRadius(normCentrality, node.id);
+      ctx.moveTo(node.x + r, node.y);
+      ctx.arc(node.x, node.y, r, 0, Math.PI * 2);
+    }
+    ctx.fill();
+  }
+
+  // ── Node outlines — single pass over active nodes only ────────────────────
+  ctx.strokeStyle = "#0D0F14";
+  ctx.lineWidth = 1.5 / k;
+  ctx.globalAlpha = 1;
+  ctx.beginPath();
+  for (const node of simNodes) {
+    if (node.x === undefined) continue;
+    if (selectedId && !connected.has(node.id)) continue;
+    const r = nodeRadius(normCentrality, node.id);
+    ctx.moveTo(node.x + r, node.y);
+    ctx.arc(node.x, node.y, r, 0, Math.PI * 2);
+  }
+  ctx.stroke();
+
+  // ── Labels — tier 1 always, tier 2 at zoom ≥ 1.4 ─────────────────────────
+  ctx.textBaseline = "middle";
+  for (const node of simNodes) {
+    if (node.x === undefined) continue;
+    const nc = normCentrality[node.id] || 0;
+    const tier = getLabelTier(nc);
+    if (tier === 3) continue;
+    if (tier === 2 && k < 1.4) continue;
+    const active = !selectedId || connected.has(node.id);
+    ctx.globalAlpha = active ? 1 : 0.07;
+    const r = nodeRadius(normCentrality, node.id);
+    const label = node.title.length > 24 ? node.title.slice(0, 22) + "…" : node.title;
+    ctx.font = `${tier === 1 ? 12 : 10}px Georgia, serif`;
+    ctx.fillStyle = tier === 1 ? "#C8CEDD" : "#8898B8";
+    ctx.fillText(label, node.x + r + 3, node.y);
+  }
+
+  ctx.restore();
 }
 
 export default function GraphCanvas({
@@ -41,14 +172,26 @@ export default function GraphCanvas({
 }) {
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
-  const svgRef = useRef(null);
   const simRef = useRef(null);
   const transformRef = useRef(d3.zoomIdentity);
-  const [dims, setDims] = useState({ width: 900, height: 650 });
-  const [zoomLevel, setZoomLevel] = useState(1);
-  const [tooltip, setTooltip] = useState(null); // { x, y, title }
+  const simNodesRef = useRef([]);
+  const simEdgesRef = useRef([]);
+  const dragNodeRef = useRef(null);
+  const isDraggingRef = useRef(false);
 
-  // Observe container dimensions
+  // Stable refs for values used inside async callbacks/event handlers.
+  const normCentralityRef = useRef(normCentrality);
+  const communitiesRef = useRef(communities);
+  const selectedIdRef = useRef(selectedId);
+  const onNodeClickRef = useRef(onNodeClick);
+  useEffect(() => { normCentralityRef.current = normCentrality; }, [normCentrality]);
+  useEffect(() => { communitiesRef.current = communities; }, [communities]);
+  useEffect(() => { onNodeClickRef.current = onNodeClick; }, [onNodeClick]);
+
+  const [dims, setDims] = useState({ width: 900, height: 650 });
+  const [tooltip, setTooltip] = useState(null);
+
+  // Observe container size
   useEffect(() => {
     const observe = () => {
       if (containerRef.current) {
@@ -63,241 +206,198 @@ export default function GraphCanvas({
     return () => window.removeEventListener("resize", observe);
   }, []);
 
-  // ── Main simulation + rendering effect ────────────────────────────────────────
+  // Redraw when selection changes (simulation may be settled — no active ticks).
   useEffect(() => {
-    if (!canvasRef.current || !svgRef.current || nodes.length === 0) return;
+    selectedIdRef.current = selectedId;
+    const canvas = canvasRef.current;
+    if (!canvas || !simNodesRef.current.length) return;
+    drawFrame(
+      canvas.getContext("2d"),
+      simNodesRef.current,
+      simEdgesRef.current,
+      transformRef.current,
+      normCentrality,
+      communities,
+      selectedId
+    );
+  }, [selectedId, normCentrality, communities]);
+
+  // ── Main effect: simulation + zoom + interaction ───────────────────────────
+  useEffect(() => {
+    if (!canvasRef.current || nodes.length === 0) return;
 
     const { width, height } = dims;
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
     canvas.width = width;
     canvas.height = height;
+    const ctx = canvas.getContext("2d");
 
-    // Filter nodes/edges to visible set
+    // Visible subsets
     const visibleNodes = visibleNodeIds
       ? nodes.filter((n) => visibleNodeIds.has(n.id))
       : nodes;
     const visibleEdges = visibleNodeIds
-      ? edges.filter(
-          (e) => visibleNodeIds.has(e.source) && visibleNodeIds.has(e.target)
-        )
+      ? edges.filter((e) => visibleNodeIds.has(e.source) && visibleNodeIds.has(e.target))
       : edges;
 
-    // Compute initial radial positions
     const initialPositions = computeRadialInitialPositions(visibleNodes, width, height);
 
-    // Prepare simulation nodes with initial positions
-    const simNodes = visibleNodes.map((n) => ({
-      ...n,
-      x: initialPositions[n.id]?.x ?? width / 2 + (Math.random() - 0.5) * 100,
-      y: initialPositions[n.id]?.y ?? height / 2 + (Math.random() - 0.5) * 100,
-    }));
+    // Preserve positions from previous simulation run to avoid full re-layout
+    // when only the visible set expands (e.g. on node selection).
+    const prevById = Object.fromEntries(simNodesRef.current.map((n) => [n.id, n]));
+    const simNodes = visibleNodes.map((n) => {
+      const prev = prevById[n.id];
+      return {
+        ...n,
+        x: prev?.x ?? initialPositions[n.id]?.x ?? width / 2 + (Math.random() - 0.5) * 100,
+        y: prev?.y ?? initialPositions[n.id]?.y ?? height / 2 + (Math.random() - 0.5) * 100,
+        vx: prev?.vx ?? 0,
+        vy: prev?.vy ?? 0,
+      };
+    });
     const simNodeById = Object.fromEntries(simNodes.map((n) => [n.id, n]));
-
     const simEdges = visibleEdges
-      .map((e) => ({
-        source: simNodeById[e.source],
-        target: simNodeById[e.target],
-      }))
+      .map((e) => ({ source: simNodeById[e.source], target: simNodeById[e.target] }))
       .filter((e) => e.source && e.target);
 
-    // ── SVG setup ──────────────────────────────────────────────────────────────
-    const svg = d3.select(svgRef.current);
-    svg.selectAll("*").remove();
-    svg.attr("width", width).attr("height", height);
+    simNodesRef.current = simNodes;
+    simEdgesRef.current = simEdges;
 
-    const defs = svg.append("defs");
-    const glow = defs.append("filter").attr("id", "mg-glow");
-    glow.append("feGaussianBlur").attr("stdDeviation", "2").attr("result", "blur");
-    const fm = glow.append("feMerge");
-    fm.append("feMergeNode").attr("in", "blur");
-    fm.append("feMergeNode").attr("in", "SourceGraphic");
-
-    const g = svg.append("g");
-
-    // ── Zoom behaviour (shared between canvas and SVG) ─────────────────────────
-    const zoom = d3
-      .zoom()
+    // ── D3 zoom on canvas ──────────────────────────────────────────────────
+    // The filter blocks zoom/pan when the mousedown lands on a node so that
+    // dragging a node doesn't also pan the viewport.
+    const zoom = d3.zoom()
       .scaleExtent([0.1, 6])
+      .filter((event) => {
+        if (event.type === "mousedown") {
+          const hit = hitTest(event.offsetX, event.offsetY, simNodesRef.current, transformRef.current, normCentralityRef.current);
+          return !hit;
+        }
+        return !event.button;
+      })
       .on("zoom", (e) => {
         transformRef.current = e.transform;
-        g.attr("transform", e.transform);
-        // Update zoom level for label tier visibility (debounced via requestAnimationFrame)
-        setZoomLevel(e.transform.k);
-        // Redraw canvas edges with new transform
-        drawEdges(ctx, simEdges, e.transform, width, height);
+        drawFrame(ctx, simNodesRef.current, simEdgesRef.current, e.transform, normCentralityRef.current, communitiesRef.current, selectedIdRef.current);
       });
 
-    svg.call(zoom);
-    svg.on("click.deselect", () => onNodeClick(null));
+    d3.select(canvas).call(zoom);
 
-    // ── Node rendering in SVG ──────────────────────────────────────────────────
-    const nodeSel = g
-      .append("g")
-      .selectAll("g.nd")
-      .data(simNodes)
-      .enter()
-      .append("g")
-      .attr("class", "nd")
-      .attr("data-nid", (d) => d.id)
-      .style("cursor", "pointer");
-
-    // Main circle
-    nodeSel
-      .append("circle")
-      .attr("r", (d) => nodeRadius(normCentrality, d.id))
-      .attr("fill", (d) => communityColor(communities[d.id] ?? 0))
-      .attr("stroke", "#0D0F14")
-      .attr("stroke-width", 1.5)
-      .attr("filter", "url(#mg-glow)");
-
-    // Tier 1 + Tier 2 labels (Tier 3 via tooltip only)
-    nodeSel
-      .filter((d) => getLabelTier(normCentrality[d.id] || 0) <= 2)
-      .append("text")
-      .attr("class", (d) =>
-        getLabelTier(normCentrality[d.id] || 0) === 1 ? "label-tier1" : "label-tier2"
-      )
-      .text((d) =>
-        d.title.length > 24 ? d.title.slice(0, 22) + "…" : d.title
-      )
-      .attr("x", (d) => nodeRadius(normCentrality, d.id) + 3)
-      .attr("y", 4)
-      .attr("font-size", (d) =>
-        getLabelTier(normCentrality[d.id] || 0) === 1 ? "12px" : "10px"
-      )
-      .attr("font-family", "Georgia, serif")
-      .attr("fill", (d) =>
-        getLabelTier(normCentrality[d.id] || 0) === 1 ? "#C8CEDD" : "#8898B8"
-      )
-      .attr("pointer-events", "none");
-
-    // ── Drag behaviour ─────────────────────────────────────────────────────────
-    let dragging = false;
-    const drag = d3
-      .drag()
-      .on("start", (event, d) => {
-        dragging = false;
-        if (!event.active) simRef.current?.alphaTarget(0.2).restart();
-        d.fx = d.x;
-        d.fy = d.y;
-      })
-      .on("drag", (event, d) => {
-        dragging = true;
-        d.fx = event.x;
-        d.fy = event.y;
-      })
-      .on("end", (event, d) => {
-        if (!event.active) simRef.current?.alphaTarget(0);
-        d.fx = null;
-        d.fy = null;
-      });
-
-    nodeSel.call(drag);
-
-    nodeSel
-      .on("click", function (event, d) {
-        event.stopPropagation();
-        if (dragging) { dragging = false; return; }
-        onNodeClick(d.id === selectedId ? null : d.id);
-      })
-      .on("mouseenter", function (event, d) {
-        const [mx, my] = d3.pointer(event, containerRef.current);
-        setTooltip({ x: mx, y: my, title: d.title, domain: d.mathDomain });
-      })
-      .on("mouseleave", () => setTooltip(null));
-
-    // ── D3 force simulation ────────────────────────────────────────────────────
-    const simulation = d3
-      .forceSimulation(simNodes)
-      .force(
-        "link",
-        d3
-          .forceLink(simEdges)
-          .id((d) => d.id)
-          .distance(85)
-          .strength(0.28)
-      )
-      .force("charge", d3.forceManyBody().strength(-160))
+    // ── Force simulation ───────────────────────────────────────────────────
+    // theta(1.0): slightly coarser Barnes-Hut approximation — faster per tick.
+    // iterations(1): one pass of collision per tick is enough visually.
+    // alphaDecay(0.025): settles ~40% faster than the previous 0.018.
+    const simulation = d3.forceSimulation(simNodes)
+      .force("link", d3.forceLink(simEdges).id((d) => d.id).distance(85).strength(0.28))
+      .force("charge", d3.forceManyBody().strength(-160).theta(1.0))
       .force("center", d3.forceCenter(width / 2, height / 2))
-      .force(
-        "collision",
-        d3.forceCollide().radius((d) => nodeRadius(normCentrality, d.id) + 5)
-      )
-      .alphaDecay(0.018);
+      .force("collision", d3.forceCollide().radius((d) => nodeRadius(normCentralityRef.current, d.id) + 5).iterations(1))
+      .alphaDecay(0.025)
+      .velocityDecay(0.4);
 
     simRef.current = simulation;
 
-    // ── Tick handler: canvas edges + SVG node positions ────────────────────────
+    // Each tick: pure canvas draw — no DOM mutations.
     simulation.on("tick", () => {
-      drawEdges(ctx, simEdges, transformRef.current, width, height);
-      nodeSel.attr("transform", (d) => `translate(${d.x},${d.y})`);
+      drawFrame(ctx, simNodes, simEdges, transformRef.current, normCentralityRef.current, communitiesRef.current, selectedIdRef.current);
     });
+
+    // ── Node drag & click ─────────────────────────────────────────────────
+    let mouseDownPos = null;
+
+    const onMouseDown = (event) => {
+      if (event.button !== 0) return;
+      mouseDownPos = { x: event.offsetX, y: event.offsetY };
+      const hit = hitTest(event.offsetX, event.offsetY, simNodesRef.current, transformRef.current, normCentralityRef.current);
+      if (!hit) return;
+      dragNodeRef.current = hit;
+      isDraggingRef.current = false;
+      hit.fx = hit.x;
+      hit.fy = hit.y;
+      simRef.current?.alphaTarget(0.2).restart();
+    };
+
+    const onMouseMove = (event) => {
+      if (dragNodeRef.current) {
+        isDraggingRef.current = true;
+        const [wx, wy] = transformRef.current.invert([event.offsetX, event.offsetY]);
+        dragNodeRef.current.fx = wx;
+        dragNodeRef.current.fy = wy;
+        canvas.style.cursor = "grabbing";
+        return;
+      }
+      const hit = hitTest(event.offsetX, event.offsetY, simNodesRef.current, transformRef.current, normCentralityRef.current);
+      canvas.style.cursor = hit ? "pointer" : "default";
+      if (hit) {
+        setTooltip({ x: event.offsetX, y: event.offsetY, title: hit.title, domain: hit.mathDomain });
+      } else {
+        setTooltip(null);
+      }
+    };
+
+    const onMouseUp = (event) => {
+      if (dragNodeRef.current) {
+        if (!isDraggingRef.current) {
+          const id = dragNodeRef.current.id;
+          onNodeClickRef.current(id === selectedIdRef.current ? null : id);
+        }
+        dragNodeRef.current.fx = null;
+        dragNodeRef.current.fy = null;
+        simRef.current?.alphaTarget(0);
+        dragNodeRef.current = null;
+        isDraggingRef.current = false;
+        canvas.style.cursor = "default";
+      } else if (mouseDownPos) {
+        // Background click (not a pan): deselect
+        const dx = event.offsetX - mouseDownPos.x;
+        const dy = event.offsetY - mouseDownPos.y;
+        if (dx * dx + dy * dy < 25) onNodeClickRef.current(null);
+      }
+      mouseDownPos = null;
+    };
+
+    const onMouseLeave = () => {
+      setTooltip(null);
+      canvas.style.cursor = "default";
+      if (dragNodeRef.current) {
+        dragNodeRef.current.fx = null;
+        dragNodeRef.current.fy = null;
+        simRef.current?.alphaTarget(0);
+        dragNodeRef.current = null;
+        isDraggingRef.current = false;
+      }
+      mouseDownPos = null;
+    };
+
+    canvas.addEventListener("mousedown", onMouseDown);
+    canvas.addEventListener("mousemove", onMouseMove);
+    canvas.addEventListener("mouseup", onMouseUp);
+    canvas.addEventListener("mouseleave", onMouseLeave);
 
     return () => {
       simulation.stop();
       simRef.current = null;
+      d3.select(canvas).on(".zoom", null);
+      canvas.removeEventListener("mousedown", onMouseDown);
+      canvas.removeEventListener("mousemove", onMouseMove);
+      canvas.removeEventListener("mouseup", onMouseUp);
+      canvas.removeEventListener("mouseleave", onMouseLeave);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dims, nodes, edges, communities, normCentrality, visibleNodeIds]);
 
-  // ── Selection highlight (separate effect — no simulation restart) ─────────────
-  useEffect(() => {
-    if (!svgRef.current) return;
-    const svg = d3.select(svgRef.current);
-
-    if (!selectedId) {
-      svg.selectAll(".nd circle").attr("opacity", 1);
-      svg.selectAll(".nd text").attr("opacity", 1);
-      return;
-    }
-
-    const connected = new Set([selectedId]);
-    edges.forEach(({ source, target }) => {
-      if (source === selectedId) connected.add(target);
-      if (target === selectedId) connected.add(source);
-    });
-
-    svg.selectAll(".nd").each(function () {
-      const nid = this.getAttribute("data-nid");
-      const active = connected.has(nid);
-      d3.select(this).selectAll("circle").attr("opacity", active ? 1 : 0.07);
-      d3.select(this).select("text").attr("opacity", active ? 1 : 0.07);
-    });
-  }, [selectedId, edges]);
-
-  // ── Tier 2 label visibility based on zoom level ───────────────────────────────
-  useEffect(() => {
-    if (!svgRef.current) return;
-    const svg = d3.select(svgRef.current);
-    svg
-      .selectAll(".label-tier2")
-      .attr("opacity", zoomLevel >= 1.4 ? 1 : 0);
-  }, [zoomLevel]);
-
-  // ── Community legend ──────────────────────────────────────────────────────────
-  const uniqueCommunities = [...new Set(Object.values(communities))].sort(
-    (a, b) => a - b
-  );
+  // ── Community legend ───────────────────────────────────────────────────────
+  const uniqueCommunities = [...new Set(Object.values(communities))].sort((a, b) => a - b);
 
   return (
     <div
       ref={containerRef}
       style={{ flex: 1, position: "relative", overflow: "hidden", background: "#0D0F14" }}
     >
-      {/* Canvas for edges (underneath) */}
       <canvas
         ref={canvasRef}
-        style={{ position: "absolute", top: 0, left: 0, pointerEvents: "none" }}
-      />
-
-      {/* SVG for nodes, labels, interactions (on top) */}
-      <svg
-        ref={svgRef}
         style={{ position: "absolute", top: 0, left: 0, display: "block" }}
       />
 
-      {/* Tooltip */}
       {tooltip && (
         <div
           style={{
@@ -320,7 +420,6 @@ export default function GraphCanvas({
         </div>
       )}
 
-      {/* Community legend (bottom-left, scrollable) */}
       <div
         style={{
           position: "absolute",
@@ -333,41 +432,16 @@ export default function GraphCanvas({
           maxWidth: 200,
           maxHeight: 220,
           overflowY: "auto",
+          pointerEvents: "none",
         }}
       >
-        <div
-          style={{
-            fontSize: 9,
-            color: "#3A4460",
-            letterSpacing: "0.1em",
-            textTransform: "uppercase",
-            marginBottom: 7,
-          }}
-        >
+        <div style={{ fontSize: 9, color: "#3A4460", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 7 }}>
           Communities
         </div>
         {uniqueCommunities.map((c) => (
-          <div
-            key={c}
-            style={{ display: "flex", alignItems: "flex-start", gap: 7, marginBottom: 5 }}
-          >
-            <div
-              style={{
-                width: 7,
-                height: 7,
-                borderRadius: "50%",
-                background: communityColor(c),
-                flexShrink: 0,
-                marginTop: 2,
-              }}
-            />
-            <span
-              style={{
-                fontSize: 10,
-                color: "#7888A8",
-                lineHeight: 1.4,
-              }}
-            >
+          <div key={c} style={{ display: "flex", alignItems: "flex-start", gap: 7, marginBottom: 5 }}>
+            <div style={{ width: 7, height: 7, borderRadius: "50%", background: communityColor(c), flexShrink: 0, marginTop: 2 }} />
+            <span style={{ fontSize: 10, color: "#7888A8", lineHeight: 1.4 }}>
               {communityLabels?.[c]?.label || `Cluster ${c}`}
             </span>
           </div>
@@ -378,29 +452,4 @@ export default function GraphCanvas({
       </div>
     </div>
   );
-}
-
-// ── Canvas edge drawing ────────────────────────────────────────────────────────
-function drawEdges(ctx, edges, transform, width, height) {
-  ctx.clearRect(0, 0, width, height);
-
-  const { x: tx, y: ty, k } = transform;
-  ctx.save();
-  ctx.setTransform(k, 0, 0, k, tx, ty);
-
-  ctx.beginPath();
-  ctx.strokeStyle = "#3A4468";
-  ctx.lineWidth = 1 / k; // keep visual weight constant regardless of zoom
-  ctx.globalAlpha = 0.4;
-
-  for (const edge of edges) {
-    const s = edge.source;
-    const t = edge.target;
-    if (!s || !t || s.x === undefined || t.x === undefined) continue;
-    ctx.moveTo(s.x, s.y);
-    ctx.lineTo(t.x, t.y);
-  }
-
-  ctx.stroke();
-  ctx.restore();
 }

@@ -4,7 +4,7 @@ import InfoPanel from "./components/InfoPanel.jsx";
 import ControlBar from "./components/ControlBar.jsx";
 import { computeBetweenness, detectCommunities, normalise } from "./utils/graphAnalysis.js";
 import { analyseGraph } from "./services/claudeService.js";
-import { applyFilters } from "./utils/graphFilters.js";
+import { applyFilters, getNeighbourIds } from "./utils/graphFilters.js";
 
 const FONT = "Georgia, serif";
 
@@ -193,13 +193,33 @@ export default function App() {
   // ── Derived: visible nodes/edges after filtering ──────────────────────────────
   const visibleNodeIds = useMemo(() => {
     if (!graphData || !analysis) return null;
-    return applyFilters(
+
+    const hasActiveFilters =
+      filters.searchQuery ||
+      filters.communityFilter !== null ||
+      filters.minCentrality > 0;
+
+    // No active filters → show all nodes; return null so the simulation doesn't
+    // restart when selectedId changes (null === null is a stable reference).
+    if (!hasActiveFilters) return null;
+
+    const filtered = applyFilters(
       graphData.nodes,
       analysis.normCentrality,
       analysis.communities,
       filters
     );
-  }, [graphData, analysis, filters]);
+
+    // When a node is selected, expand the visible set to include its full
+    // neighborhood so the user can see how it connects even to filtered-out nodes.
+    if (selectedId) {
+      for (const id of getNeighbourIds(selectedId, graphData.edges)) {
+        filtered.add(id);
+      }
+    }
+
+    return filtered;
+  }, [graphData, analysis, filters, selectedId]);
 
   // ── Derived: selected node object ────────────────────────────────────────────
   const selectedNode = useMemo(() => {
@@ -311,9 +331,11 @@ export default function App() {
           nodes={graphData.nodes}
           communities={analysis.communities}
           normCentrality={analysis.normCentrality}
+          communityLabels={communityLabels}
           insights={insights}
           insightsLoading={insightsLoading}
           insightsError={insightsError}
+          onNodeClick={setSelectedId}
         />
       </div>
     </div>

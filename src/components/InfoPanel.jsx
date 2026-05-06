@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { getDomainBreakdown } from "../utils/graphFilters.js";
 
 const COMMUNITY_COLORS = [
@@ -59,14 +58,6 @@ const S = {
   },
   bridgeTitle: { fontSize: 12, color: "#CDD0E5", fontWeight: "bold", marginBottom: 4 },
   bridgeExpl: { fontSize: 11, color: "#6878A0", lineHeight: 1.7 },
-  gapCard: {
-    padding: "10px 11px",
-    borderRadius: 5,
-    background: "#0C0E15",
-    border: "1px solid #1A1E2A",
-  },
-  gapSubfield: { fontSize: 12, color: "#A8C0D8", marginBottom: 3 },
-  gapReason: { fontSize: 11, color: "#4A5878", lineHeight: 1.6 },
   nodeCard: {
     padding: "12px 13px",
     borderRadius: 6,
@@ -109,19 +100,18 @@ export default function InfoPanel({
   nodes,
   communities,
   normCentrality,
+  communityLabels,
   insights,
   insightsLoading,
   insightsError,
+  onNodeClick,
 }) {
-  const [showAllConnections, setShowAllConnections] = useState(false);
   const nodeMap = Object.fromEntries((nodes || []).map((n) => [n.id, n]));
 
   const connectedIds = selectedNode
     ? new Set(
         edges
-          .filter(
-            (e) => e.source === selectedNode.id || e.target === selectedNode.id
-          )
+          .filter((e) => e.source === selectedNode.id || e.target === selectedNode.id)
           .flatMap((e) => [e.source, e.target])
           .filter((id) => id !== selectedNode.id)
       )
@@ -135,11 +125,21 @@ export default function InfoPanel({
   const domainBreakdown = getDomainBreakdown(nodes || []);
   const maxDomainCount = domainBreakdown[0]?.[1] || 1;
 
-  const connectionList = connectedIds ? [...connectedIds] : [];
-  const SHOW_LIMIT = 12;
-  const shownConnections = showAllConnections
-    ? connectionList
-    : connectionList.slice(0, SHOW_LIMIT);
+  // Group connections by community, sorted by group size desc; within each group sort by centrality desc
+  const connectionsByComm = {};
+  if (connectedIds) {
+    for (const id of connectedIds) {
+      const c = communities[id] ?? 0;
+      if (!connectionsByComm[c]) connectionsByComm[c] = [];
+      connectionsByComm[c].push(id);
+    }
+    for (const group of Object.values(connectionsByComm)) {
+      group.sort((a, b) => (normCentrality[b] || 0) - (normCentrality[a] || 0));
+    }
+  }
+  const sortedComms = Object.keys(connectionsByComm)
+    .map(Number)
+    .sort((a, b) => connectionsByComm[b].length - connectionsByComm[a].length);
 
   return (
     <div style={S.panel}>
@@ -189,58 +189,84 @@ export default function InfoPanel({
             </a>
           </div>
 
+          {/* Connections grouped by community */}
           {connectedIds && connectedIds.size > 0 && (
-            <div>
-              <div style={{ ...S.nodeMeta, marginBottom: 6 }}>
-                {connectedIds.size} connection{connectedIds.size !== 1 ? "s" : ""}
+            <div style={S.section}>
+              <div style={S.heading}>
+                {connectedIds.size} Connection{connectedIds.size !== 1 ? "s" : ""}
               </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                {shownConnections.map((id) => {
-                  const n = nodeMap[id];
-                  if (!n) return null;
-                  const c = communities[id];
-                  return (
-                    <div
-                      key={id}
-                      style={{
-                        fontSize: 11,
-                        color: "#7888A8",
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 6,
-                      }}
-                    >
-                      <div
-                        style={{
-                          width: 6,
-                          height: 6,
-                          borderRadius: "50%",
-                          background: communityColor(c ?? 0),
-                          flexShrink: 0,
-                        }}
-                      />
-                      {n.title}
-                    </div>
-                  );
-                })}
-                {connectionList.length > SHOW_LIMIT && !showAllConnections && (
-                  <button
-                    onClick={() => setShowAllConnections(true)}
+              {sortedComms.map((c) => (
+                <div key={c} style={{ marginBottom: 6 }}>
+                  <div
                     style={{
-                      background: "none",
-                      border: "none",
-                      cursor: "pointer",
-                      fontSize: 10,
-                      color: "#3A5070",
-                      textAlign: "left",
-                      padding: 0,
-                      fontFamily: "Georgia, serif",
+                      fontSize: 9,
+                      color: communityColor(c),
+                      letterSpacing: "0.08em",
+                      textTransform: "uppercase",
+                      marginBottom: 3,
+                      paddingLeft: 2,
                     }}
                   >
-                    +{connectionList.length - SHOW_LIMIT} more…
-                  </button>
-                )}
-              </div>
+                    {communityLabels?.[c]?.label || `Cluster ${c}`}
+                    <span style={{ color: "#3A4460", marginLeft: 5 }}>
+                      ({connectionsByComm[c].length})
+                    </span>
+                  </div>
+                  {connectionsByComm[c].map((id) => {
+                    const n = nodeMap[id];
+                    if (!n) return null;
+                    return (
+                      <button
+                        key={id}
+                        onClick={() => onNodeClick(id)}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 6,
+                          background: "none",
+                          border: "none",
+                          cursor: "pointer",
+                          width: "100%",
+                          padding: "2px 0",
+                          textAlign: "left",
+                          fontFamily: "Georgia, serif",
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: 5,
+                            height: 5,
+                            borderRadius: "50%",
+                            background: communityColor(c),
+                            flexShrink: 0,
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontSize: 11,
+                            color: "#7888A8",
+                            transition: "color 0.1s",
+                          }}
+                          onMouseEnter={(e) => (e.target.style.color = "#A8C4DC")}
+                          onMouseLeave={(e) => (e.target.style.color = "#7888A8")}
+                        >
+                          {n.title}
+                        </span>
+                        <span
+                          style={{
+                            fontSize: 9,
+                            color: "#2A3450",
+                            marginLeft: "auto",
+                            flexShrink: 0,
+                          }}
+                        >
+                          {Math.round((normCentrality[id] || 0) * 100)}%
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              ))}
             </div>
           )}
         </div>
@@ -288,30 +314,6 @@ export default function InfoPanel({
                 <div key={i} style={S.bridgeCard}>
                   <div style={S.bridgeTitle}>{b.title}</div>
                   <div style={S.bridgeExpl}>{b.explanation}</div>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* Structural gaps */}
-          {insights.gaps?.length > 0 && (
-            <div style={S.section}>
-              <div style={S.heading}>Structural Gaps</div>
-              <div
-                style={{
-                  fontSize: 10,
-                  color: "#3A4460",
-                  marginBottom: 2,
-                  fontStyle: "italic",
-                  lineHeight: 1.6,
-                }}
-              >
-                Subfields absent or underrepresented in this crawl.
-              </div>
-              {insights.gaps.map((g, i) => (
-                <div key={i} style={S.gapCard}>
-                  <div style={S.gapSubfield}>{g.subfield}</div>
-                  <div style={S.gapReason}>{g.reason}</div>
                 </div>
               ))}
             </div>
