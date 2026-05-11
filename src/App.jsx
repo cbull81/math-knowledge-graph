@@ -157,27 +157,34 @@ export default function App() {
         setAnalysis({ communities, centrality, normCentrality });
         setPhase("ready");
 
-        // ── Claude annotation (non-blocking) ──────────────────────────────────
-        setInsightsLoading(true);
-        setInsightsError(null);
-        analyseGraph({
-          nodes: data.nodes,
-          edges: data.edges,
-          communities,
-          centrality,
-        })
-          .then((result) => {
-            if (!cancelled) {
-              setInsights(result);
-              setInsightsLoading(false);
-            }
+        // ── Claude annotation ──────────────────────────────────────────────────
+        // Use pre-baked insights from the JSON when available (GitHub Pages / prod).
+        // Fall back to a live Claude call only in local dev (no pre-baked data).
+        if (data.meta?.insights) {
+          setInsights(data.meta.insights);
+          setInsightsLoading(false);
+        } else {
+          setInsightsLoading(true);
+          setInsightsError(null);
+          analyseGraph({
+            nodes: data.nodes,
+            edges: data.edges,
+            communities,
+            centrality,
           })
-          .catch((err) => {
-            if (!cancelled) {
-              setInsightsError(err.message);
-              setInsightsLoading(false);
-            }
-          });
+            .then((result) => {
+              if (!cancelled) {
+                setInsights(result);
+                setInsightsLoading(false);
+              }
+            })
+            .catch((err) => {
+              if (!cancelled) {
+                setInsightsError(err.message);
+                setInsightsLoading(false);
+              }
+            });
+        }
       } catch (err) {
         if (!cancelled) {
           setLoadError(err.message);

@@ -9,9 +9,19 @@
  * Requires: Node.js >= 18 (native fetch)
  */
 
-import { writeFileSync, mkdirSync } from "node:fs";
+import { writeFileSync, mkdirSync, readFileSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { analyseGraphForCrawler } from "./analyseGraph.js";
+
+// Load .env so ANTHROPIC_API_KEY is available without manual export
+try {
+  const envText = readFileSync(resolve(dirname(fileURLToPath(import.meta.url)), "../.env"), "utf8");
+  for (const line of envText.split("\n")) {
+    const m = line.match(/^\s*([^#=\s][^=]*?)\s*=\s*(.*?)\s*$/);
+    if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^['"]|['"]$/g, "");
+  }
+} catch { /* .env is optional */ }
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUTPUT_PATH = resolve(__dirname, "../public/math_graph.json");
@@ -288,6 +298,10 @@ async function main() {
   console.log(`  Edges: ${edges.length}`);
   console.log(`  Avg degree: ${((edges.length * 2) / nodes.length).toFixed(1)}`);
 
+  // ── Phase 4: Claude analysis (pre-bakes community labels + bridge explanations) ─
+  console.log("\nPhase 4: Claude analysis...");
+  const insights = await analyseGraphForCrawler(nodes, edges);
+
   const output = {
     meta: {
       crawledAt: new Date().toISOString(),
@@ -295,6 +309,7 @@ async function main() {
       edgeCount: edges.length,
       domains: Object.keys(domainCounts).sort(),
       note: "Quick-start dataset (curated). Run `npm run crawl` for the full graph.",
+      ...(insights && { insights }),
     },
     nodes,
     edges,

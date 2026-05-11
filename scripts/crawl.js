@@ -17,9 +17,19 @@
  * Requires: Node.js >= 18 (native fetch)
  */
 
-import { writeFileSync, mkdirSync } from "node:fs";
+import { writeFileSync, mkdirSync, readFileSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { analyseGraphForCrawler } from "./analyseGraph.js";
+
+// Load .env so ANTHROPIC_API_KEY is available without manual export
+try {
+  const envText = readFileSync(resolve(dirname(fileURLToPath(import.meta.url)), "../.env"), "utf8");
+  for (const line of envText.split("\n")) {
+    const m = line.match(/^\s*([^#=\s][^=]*?)\s*=\s*(.*?)\s*$/);
+    if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^['"]|['"]$/g, "");
+  }
+} catch { /* .env is optional */ }
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUTPUT_PATH = resolve(__dirname, "../public/math_graph.json");
@@ -30,7 +40,7 @@ const WIKI_API = "https://en.wikipedia.org/w/api.php";
 const MAX_DOMAIN_CATEGORIES = 30;   // max domain categories to crawl
 const MAX_ARTICLES_PER_CAT = 30;    // max article members per domain category
 const MAX_TOTAL_NODES = 450;        // soft cap on total nodes
-const DELAY_MS = 1200;              // ms between API calls (sequential, ~1 req/s)
+const DELAY_MS = 2000;              // ms between API calls (sequential, ~30 req/min)
 const MAX_EXTRACT_CHARS = 4000;
 
 // ── Domain categories to crawl ─────────────────────────────────────────────────
@@ -160,8 +170,9 @@ async function wikiGet(params) {
     }
 
     if (res.status === 429) {
-      // Back off exponentially on rate limit
-      const wait = DELAY_MS * Math.pow(2, attempt + 1);
+      const retryAfter = parseInt(res.headers.get("retry-after") || "0", 10);
+      const backoff = DELAY_MS * Math.pow(2, attempt + 1);
+      const wait = retryAfter > 0 ? retryAfter * 1000 + 1000 : backoff;
       console.warn(`\n  Rate limited, waiting ${(wait / 1000).toFixed(1)}s...`);
       await sleep(wait);
       continue;
@@ -470,12 +481,17 @@ async function main() {
     .sort(([, a], [, b]) => b - a)
     .forEach(([domain, count]) => console.log(`    ${domain}: ${count}`));
 
+  // ── Phase 8: Claude analysis (pre-bakes community labels + bridge explanations) ─
+  console.log("\nPhase 8: Claude analysis...");
+  const insights = await analyseGraphForCrawler(nodes, edges);
+
   const output = {
     meta: {
       crawledAt: new Date().toISOString(),
       nodeCount: nodes.length,
       edgeCount: edges.length,
       domains: Object.keys(domainCounts).sort(),
+      ...(insights && { insights }),
     },
     nodes,
     edges,
