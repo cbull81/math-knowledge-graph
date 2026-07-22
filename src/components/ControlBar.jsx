@@ -1,41 +1,29 @@
+import { getDomainBreakdown, domainColor } from "../utils/graphFilters.js";
+
 const FONT = "Georgia, serif";
 
-const COMMUNITY_COLORS = [
-  "#78B4D4", "#D4A878", "#A878D4", "#78D4A8",
-  "#D47878", "#D4D478", "#78D4D4", "#D478A8",
-  "#88B478", "#B49878", "#A8B4D4", "#D4B8A8",
-  "#78A8D4", "#D478D4", "#A8D478",
-];
-
-function communityColor(c) {
-  return COMMUNITY_COLORS[c % COMMUNITY_COLORS.length];
-}
-
 export default function ControlBar({
-  communities,
-  communityLabels,
+  nodes,
   normCentrality,
   filters,
   onFiltersChange,
   totalNodes,
   visibleCount,
 }) {
-  const uniqueCommunities = [...new Set(Object.values(communities || {}))].sort(
-    (a, b) => a - b
-  );
+  const domains = getDomainBreakdown(nodes || []).map(([domain]) => domain);
 
   const hasActiveFilters =
-    filters.searchQuery ||
-    filters.communityFilter !== null ||
-    filters.minCentrality > 0;
+    filters.searchQuery || filters.domainFilter !== null || filters.minCentrality > 0;
 
   const update = (key, value) => {
     onFiltersChange({ ...filters, [key]: value });
   };
 
   const clearAll = () => {
-    onFiltersChange({ searchQuery: "", communityFilter: null, minCentrality: 0 });
+    onFiltersChange({ searchQuery: "", domainFilter: null, minCentrality: 0 });
   };
+
+  const activeColor = filters.domainFilter ? domainColor(filters.domainFilter) : null;
 
   return (
     <div
@@ -82,7 +70,7 @@ export default function ControlBar({
         />
       </div>
 
-      {/* Community filter */}
+      {/* Domain filter */}
       <div
         style={{
           display: "flex",
@@ -94,36 +82,43 @@ export default function ControlBar({
           flexShrink: 0,
         }}
       >
-        <span style={{ fontSize: 11, color: "#3A4460", flexShrink: 0 }}>Community</span>
+        <span style={{ fontSize: 11, color: "#3A4460", flexShrink: 0 }}>Domain</span>
         <div style={{ position: "relative" }}>
+          {activeColor && (
+            <span
+              style={{
+                position: "absolute",
+                left: -8,
+                top: "50%",
+                transform: "translateY(-50%)",
+                width: 6,
+                height: 6,
+                borderRadius: "50%",
+                background: activeColor,
+              }}
+            />
+          )}
           <select
-            value={filters.communityFilter === null ? "" : String(filters.communityFilter)}
+            value={filters.domainFilter ?? ""}
             onChange={(e) =>
-              update(
-                "communityFilter",
-                e.target.value === "" ? null : Number(e.target.value)
-              )
+              update("domainFilter", e.target.value === "" ? null : e.target.value)
             }
             style={{
               background: "#0F1119",
               border: "1px solid #2E3448",
               borderRadius: 3,
-              color: "#C8CEDD",
+              color: activeColor ?? "#C8CEDD",
               fontSize: 11,
               fontFamily: FONT,
               padding: "3px 22px 3px 8px",
               cursor: "pointer",
               appearance: "none",
-              minWidth: 120,
+              minWidth: 150,
             }}
           >
-            <option value="">All</option>
-            {uniqueCommunities.map((c) => (
-              <option key={c} value={String(c)}>
-                {communityLabels?.[c]?.label
-                  ? communityLabels[c].label
-                  : `Cluster ${c}`}
-              </option>
+            <option value="">All domains</option>
+            {domains.map((d) => (
+              <option key={d} value={d}>{d}</option>
             ))}
           </select>
           <span
@@ -139,20 +134,6 @@ export default function ControlBar({
           >
             ▼
           </span>
-          {filters.communityFilter !== null && (
-            <span
-              style={{
-                position: "absolute",
-                left: -8,
-                top: "50%",
-                transform: "translateY(-50%)",
-                width: 6,
-                height: 6,
-                borderRadius: "50%",
-                background: communityColor(filters.communityFilter),
-              }}
-            />
-          )}
         </div>
       </div>
 

@@ -1,17 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
-import { computeRadialInitialPositions } from "../utils/graphFilters.js";
-
-const COMMUNITY_COLORS = [
-  "#78B4D4", "#D4A878", "#A878D4", "#78D4A8",
-  "#D47878", "#D4D478", "#78D4D4", "#D478A8",
-  "#88B478", "#B49878", "#A8B4D4", "#D4B8A8",
-  "#78A8D4", "#D478D4", "#A8D478",
-];
-
-function communityColor(c) {
-  return COMMUNITY_COLORS[c % COMMUNITY_COLORS.length];
-}
+import { computeRadialInitialPositions, domainColor } from "../utils/graphFilters.js";
 
 function nodeRadius(normCentrality, nodeId) {
   return 5 + (normCentrality[nodeId] || 0) * 12;
@@ -23,7 +12,6 @@ function getLabelTier(v) {
   return 3;
 }
 
-// O(n) hit test — check nodes in reverse paint order so top-most wins.
 function hitTest(offsetX, offsetY, simNodes, transform, normCentrality) {
   const [wx, wy] = transform.invert([offsetX, offsetY]);
   for (let i = simNodes.length - 1; i >= 0; i--) {
@@ -37,10 +25,7 @@ function hitTest(offsetX, offsetY, simNodes, transform, normCentrality) {
   return null;
 }
 
-// ── Full-canvas frame draw ─────────────────────────────────────────────────────
-// Batches fills by community color to minimise canvas state changes (~15 batches
-// instead of 400 individual fill() calls).
-function drawFrame(ctx, simNodes, simEdges, transform, normCentrality, communities, selectedId) {
+function drawFrame(ctx, simNodes, simEdges, transform, normCentrality, selectedId) {
   const { width, height } = ctx.canvas;
   const { x: tx, y: ty, k } = transform;
 
@@ -48,7 +33,6 @@ function drawFrame(ctx, simNodes, simEdges, transform, normCentrality, communiti
   ctx.save();
   ctx.setTransform(k, 0, 0, k, tx, ty);
 
-  // Build neighbor set for selection dimming
   const connected = new Set();
   if (selectedId) {
     connected.add(selectedId);
@@ -63,7 +47,6 @@ function drawFrame(ctx, simNodes, simEdges, transform, normCentrality, communiti
   // ── Edges ──────────────────────────────────────────────────────────────────
   const lw = 1 / k;
   if (selectedId) {
-    // Dim edges first
     ctx.beginPath();
     ctx.strokeStyle = "#3A4468";
     ctx.lineWidth = lw;
@@ -76,7 +59,6 @@ function drawFrame(ctx, simNodes, simEdges, transform, normCentrality, communiti
       }
     }
     ctx.stroke();
-    // Highlighted edges
     ctx.beginPath();
     ctx.strokeStyle = "#6888A8";
     ctx.lineWidth = 1.5 / k;
@@ -108,7 +90,7 @@ function drawFrame(ctx, simNodes, simEdges, transform, normCentrality, communiti
     if (node.x === undefined) continue;
     const active = !selectedId || connected.has(node.id);
     const alpha = active ? 1 : 0.07;
-    const color = communityColor(communities[node.id] ?? 0);
+    const color = domainColor(node.mathDomain);
     const key = `${alpha}_${color}`;
     if (!colorGroups[key]) colorGroups[key] = { alpha, color, nodes: [] };
     colorGroups[key].nodes.push(node);
@@ -126,7 +108,7 @@ function drawFrame(ctx, simNodes, simEdges, transform, normCentrality, communiti
     ctx.fill();
   }
 
-  // ── Node outlines — single pass over active nodes only ────────────────────
+  // ── Node outlines ─────────────────────────────────────────────────────────
   ctx.strokeStyle = "#0D0F14";
   ctx.lineWidth = 1.5 / k;
   ctx.globalAlpha = 1;
@@ -163,9 +145,7 @@ function drawFrame(ctx, simNodes, simEdges, transform, normCentrality, communiti
 export default function GraphCanvas({
   nodes,
   edges,
-  communities,
   normCentrality,
-  communityLabels,
   visibleNodeIds,
   onNodeClick,
   selectedId,
@@ -179,19 +159,15 @@ export default function GraphCanvas({
   const dragNodeRef = useRef(null);
   const isDraggingRef = useRef(false);
 
-  // Stable refs for values used inside async callbacks/event handlers.
   const normCentralityRef = useRef(normCentrality);
-  const communitiesRef = useRef(communities);
   const selectedIdRef = useRef(selectedId);
   const onNodeClickRef = useRef(onNodeClick);
   useEffect(() => { normCentralityRef.current = normCentrality; }, [normCentrality]);
-  useEffect(() => { communitiesRef.current = communities; }, [communities]);
   useEffect(() => { onNodeClickRef.current = onNodeClick; }, [onNodeClick]);
 
   const [dims, setDims] = useState({ width: 900, height: 650 });
   const [tooltip, setTooltip] = useState(null);
 
-  // Observe container size
   useEffect(() => {
     const observe = () => {
       if (containerRef.current) {
@@ -206,7 +182,6 @@ export default function GraphCanvas({
     return () => window.removeEventListener("resize", observe);
   }, []);
 
-  // Redraw when selection changes (simulation may be settled — no active ticks).
   useEffect(() => {
     selectedIdRef.current = selectedId;
     const canvas = canvasRef.current;
@@ -217,10 +192,9 @@ export default function GraphCanvas({
       simEdgesRef.current,
       transformRef.current,
       normCentrality,
-      communities,
       selectedId
     );
-  }, [selectedId, normCentrality, communities]);
+  }, [selectedId, normCentrality]);
 
   // ── Main effect: simulation + zoom + interaction ───────────────────────────
   useEffect(() => {
@@ -232,7 +206,6 @@ export default function GraphCanvas({
     canvas.height = height;
     const ctx = canvas.getContext("2d");
 
-    // Visible subsets
     const visibleNodes = visibleNodeIds
       ? nodes.filter((n) => visibleNodeIds.has(n.id))
       : nodes;
@@ -242,8 +215,6 @@ export default function GraphCanvas({
 
     const initialPositions = computeRadialInitialPositions(visibleNodes, width, height);
 
-    // Preserve positions from previous simulation run to avoid full re-layout
-    // when only the visible set expands (e.g. on node selection).
     const prevById = Object.fromEntries(simNodesRef.current.map((n) => [n.id, n]));
     const simNodes = visibleNodes.map((n) => {
       const prev = prevById[n.id];
@@ -263,9 +234,6 @@ export default function GraphCanvas({
     simNodesRef.current = simNodes;
     simEdgesRef.current = simEdges;
 
-    // ── D3 zoom on canvas ──────────────────────────────────────────────────
-    // The filter blocks zoom/pan when the mousedown lands on a node so that
-    // dragging a node doesn't also pan the viewport.
     const zoom = d3.zoom()
       .scaleExtent([0.1, 6])
       .filter((event) => {
@@ -277,15 +245,11 @@ export default function GraphCanvas({
       })
       .on("zoom", (e) => {
         transformRef.current = e.transform;
-        drawFrame(ctx, simNodesRef.current, simEdgesRef.current, e.transform, normCentralityRef.current, communitiesRef.current, selectedIdRef.current);
+        drawFrame(ctx, simNodesRef.current, simEdgesRef.current, e.transform, normCentralityRef.current, selectedIdRef.current);
       });
 
     d3.select(canvas).call(zoom);
 
-    // ── Force simulation ───────────────────────────────────────────────────
-    // theta(1.0): slightly coarser Barnes-Hut approximation — faster per tick.
-    // iterations(1): one pass of collision per tick is enough visually.
-    // alphaDecay(0.025): settles ~40% faster than the previous 0.018.
     const simulation = d3.forceSimulation(simNodes)
       .force("link", d3.forceLink(simEdges).id((d) => d.id).distance(85).strength(0.28))
       .force("charge", d3.forceManyBody().strength(-160).theta(1.0))
@@ -296,12 +260,10 @@ export default function GraphCanvas({
 
     simRef.current = simulation;
 
-    // Each tick: pure canvas draw — no DOM mutations.
     simulation.on("tick", () => {
-      drawFrame(ctx, simNodes, simEdges, transformRef.current, normCentralityRef.current, communitiesRef.current, selectedIdRef.current);
+      drawFrame(ctx, simNodes, simEdges, transformRef.current, normCentralityRef.current, selectedIdRef.current);
     });
 
-    // ── Node drag & click ─────────────────────────────────────────────────
     let mouseDownPos = null;
 
     const onMouseDown = (event) => {
@@ -347,7 +309,6 @@ export default function GraphCanvas({
         isDraggingRef.current = false;
         canvas.style.cursor = "default";
       } else if (mouseDownPos) {
-        // Background click (not a pan): deselect
         const dx = event.offsetX - mouseDownPos.x;
         const dy = event.offsetY - mouseDownPos.y;
         if (dx * dx + dy * dy < 25) onNodeClickRef.current(null);
@@ -383,10 +344,7 @@ export default function GraphCanvas({
       canvas.removeEventListener("mouseleave", onMouseLeave);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dims, nodes, edges, communities, normCentrality, visibleNodeIds]);
-
-  // ── Community legend ───────────────────────────────────────────────────────
-  const uniqueCommunities = [...new Set(Object.values(communities))].sort((a, b) => a - b);
+  }, [dims, nodes, edges, normCentrality, visibleNodeIds]);
 
   return (
     <div
@@ -428,26 +386,12 @@ export default function GraphCanvas({
           background: "#0D0F14E8",
           border: "1px solid #1E2330",
           borderRadius: 6,
-          padding: "10px 14px",
-          maxWidth: 200,
-          maxHeight: 220,
-          overflowY: "auto",
+          padding: "8px 12px",
           pointerEvents: "none",
         }}
       >
-        <div style={{ fontSize: 9, color: "#3A4460", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 7 }}>
-          Communities
-        </div>
-        {uniqueCommunities.map((c) => (
-          <div key={c} style={{ display: "flex", alignItems: "flex-start", gap: 7, marginBottom: 5 }}>
-            <div style={{ width: 7, height: 7, borderRadius: "50%", background: communityColor(c), flexShrink: 0, marginTop: 2 }} />
-            <span style={{ fontSize: 10, color: "#7888A8", lineHeight: 1.4 }}>
-              {communityLabels?.[c]?.label || `Cluster ${c}`}
-            </span>
-          </div>
-        ))}
-        <div style={{ marginTop: 8, fontSize: 9, color: "#2A3450", lineHeight: 1.6 }}>
-          Size = centrality · Zoom for labels
+        <div style={{ fontSize: 9, color: "#2A3450", lineHeight: 1.6, fontFamily: "Georgia, serif" }}>
+          Color = domain · Size = centrality · Zoom for labels
         </div>
       </div>
     </div>

@@ -3,25 +3,45 @@
  * No React dependencies — usable in both components and analysis utils.
  */
 
+const DOMAIN_PALETTE = [
+  "#78B4D4", "#D4A878", "#A878D4", "#78D4A8",
+  "#D47878", "#D4D478", "#78D4D4", "#D478A8",
+  "#88B478", "#B49878", "#A8B4D4", "#D4B8A8",
+  "#78A8D4", "#D478D4", "#A8D478", "#C4A060",
+  "#7890D4", "#D47898", "#98D478", "#D490A8",
+  "#78C4B4", "#B4C478", "#C478B4", "#90B4D4",
+  "#D4B060", "#A090D4", "#D4786C", "#78D4C4",
+  "#B4D090", "#D4A0C4",
+];
+
+function hashStr(s) {
+  let h = 0;
+  for (const c of (s || "")) h = (h * 31 + c.charCodeAt(0)) & 0xffff;
+  return h;
+}
+
+export function domainColor(domain) {
+  return DOMAIN_PALETTE[hashStr(domain) % DOMAIN_PALETTE.length];
+}
+
 /**
  * Apply all active filters and return the set of visible node IDs.
  * Logic is additive (AND): a node must pass all active filters.
  *
- * @param {Array}  nodes         - full node list from graph JSON
+ * @param {Array}  nodes          - full node list from graph JSON
  * @param {Object} normCentrality - { nodeId: 0-1 }
- * @param {Object} communities    - { nodeId: communityIndex }
- * @param {Object} filters        - { searchQuery, communityFilter, minCentrality }
+ * @param {Object} filters        - { searchQuery, domainFilter, minCentrality }
  * @returns {Set<string>}
  */
-export function applyFilters(nodes, normCentrality, communities, filters) {
-  const { searchQuery = "", communityFilter = null, minCentrality = 0 } = filters;
+export function applyFilters(nodes, normCentrality, filters) {
+  const { searchQuery = "", domainFilter = null, minCentrality = 0 } = filters;
   const queryLower = searchQuery.toLowerCase().trim();
   const threshold = minCentrality / 100;
 
   const visible = new Set();
   for (const node of nodes) {
     if (queryLower && !node.title.toLowerCase().includes(queryLower)) continue;
-    if (communityFilter !== null && communities[node.id] !== communityFilter) continue;
+    if (domainFilter !== null && node.mathDomain !== domainFilter) continue;
     if (threshold > 0 && (normCentrality[node.id] || 0) < threshold) continue;
     visible.add(node.id);
   }
@@ -58,31 +78,6 @@ export function getDomainBreakdown(nodes) {
     counts[d] = (counts[d] || 0) + 1;
   }
   return Object.entries(counts).sort(([, a], [, b]) => b - a);
-}
-
-/**
- * Compute approximate centroids for each community from positioned node data.
- * Call this after D3 simulation has settled (positions available on node objects).
- *
- * @param {Array}  positionedNodes - D3 simulation nodes with .x and .y
- * @param {Object} communities     - { nodeId: communityIndex }
- * @returns {Object}               - { communityIndex: { x, y } }
- */
-export function computeCommunityCentroids(positionedNodes, communities) {
-  const sums = {};
-  for (const node of positionedNodes) {
-    const c = communities[node.id];
-    if (c === undefined || node.x === undefined) continue;
-    if (!sums[c]) sums[c] = { x: 0, y: 0, count: 0 };
-    sums[c].x += node.x;
-    sums[c].y += node.y;
-    sums[c].count += 1;
-  }
-  const centroids = {};
-  for (const [c, s] of Object.entries(sums)) {
-    centroids[c] = { x: s.x / s.count, y: s.y / s.count };
-  }
-  return centroids;
 }
 
 /**

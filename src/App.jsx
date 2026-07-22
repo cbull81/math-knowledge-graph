@@ -2,8 +2,7 @@ import { useState, useEffect, useMemo } from "react";
 import GraphCanvas from "./components/GraphCanvas.jsx";
 import InfoPanel from "./components/InfoPanel.jsx";
 import ControlBar from "./components/ControlBar.jsx";
-import { computeBetweenness, detectCommunities, normalise } from "./utils/graphAnalysis.js";
-import { analyseGraph } from "./services/claudeService.js";
+import { computeBetweenness, normalise } from "./utils/graphAnalysis.js";
 import { applyFilters, getNeighbourIds } from "./utils/graphFilters.js";
 
 const FONT = "Georgia, serif";
@@ -111,18 +110,13 @@ export default function App() {
 
   // Core graph data
   const [graphData, setGraphData] = useState(null); // { nodes, edges, meta }
-  const [analysis, setAnalysis] = useState(null);   // { communities, centrality, normCentrality }
-
-  // Claude insights
-  const [insights, setInsights] = useState(null);
-  const [insightsLoading, setInsightsLoading] = useState(false);
-  const [insightsError, setInsightsError] = useState(null);
+  const [analysis, setAnalysis] = useState(null);   // { centrality, normCentrality }
 
   // UI state
   const [selectedId, setSelectedId] = useState(null);
   const [filters, setFilters] = useState({
     searchQuery: "",
-    communityFilter: null,
+    domainFilter: null,
     minCentrality: 0,
   });
 
@@ -143,48 +137,17 @@ export default function App() {
           throw new Error("Graph data is empty. Re-run the crawler.");
         }
 
-        setLoadMessage("Detecting communities…");
-        // Yield to allow the UI to update the message
+        setLoadMessage("Computing centrality…");
         await new Promise((r) => setTimeout(r, 20));
 
-        const communities = detectCommunities(data.nodes, data.edges);
         const centrality = computeBetweenness(data.nodes, data.edges);
         const normCentrality = normalise(centrality);
 
         if (cancelled) return;
 
         setGraphData(data);
-        setAnalysis({ communities, centrality, normCentrality });
+        setAnalysis({ centrality, normCentrality });
         setPhase("ready");
-
-        // ── Claude annotation ──────────────────────────────────────────────────
-        // Use pre-baked insights from the JSON when available (GitHub Pages / prod).
-        // Fall back to a live Claude call only in local dev (no pre-baked data).
-        if (data.meta?.insights) {
-          setInsights(data.meta.insights);
-          setInsightsLoading(false);
-        } else {
-          setInsightsLoading(true);
-          setInsightsError(null);
-          analyseGraph({
-            nodes: data.nodes,
-            edges: data.edges,
-            communities,
-            centrality,
-          })
-            .then((result) => {
-              if (!cancelled) {
-                setInsights(result);
-                setInsightsLoading(false);
-              }
-            })
-            .catch((err) => {
-              if (!cancelled) {
-                setInsightsError(err.message);
-                setInsightsLoading(false);
-              }
-            });
-        }
       } catch (err) {
         if (!cancelled) {
           setLoadError(err.message);
@@ -203,17 +166,14 @@ export default function App() {
 
     const hasActiveFilters =
       filters.searchQuery ||
-      filters.communityFilter !== null ||
+      filters.domainFilter !== null ||
       filters.minCentrality > 0;
 
-    // No active filters → show all nodes; return null so the simulation doesn't
-    // restart when selectedId changes (null === null is a stable reference).
     if (!hasActiveFilters) return null;
 
     const filtered = applyFilters(
       graphData.nodes,
       analysis.normCentrality,
-      analysis.communities,
       filters
     );
 
@@ -238,7 +198,6 @@ export default function App() {
   if (phase === "loading") return <LoadingScreen message={loadMessage} />;
   if (phase === "error") return <ErrorScreen message={loadError} />;
 
-  const communityLabels = insights?.communities || null;
   const visibleCount = visibleNodeIds ? visibleNodeIds.size : graphData.nodes.length;
 
   return (
@@ -285,8 +244,7 @@ export default function App() {
                 fontStyle: "italic",
               }}
             >
-              {graphData.meta.nodeCount} articles · {graphData.meta.edgeCount} links ·{" "}
-              {[...new Set(Object.values(analysis.communities))].length} communities
+              {graphData.meta.nodeCount} articles · {graphData.meta.edgeCount} links
               {graphData.meta.crawledAt && (
                 <> · crawled {new Date(graphData.meta.crawledAt).toLocaleDateString()}</>
               )}
@@ -311,8 +269,7 @@ export default function App() {
 
       {/* Filter controls */}
       <ControlBar
-        communities={analysis.communities}
-        communityLabels={communityLabels}
+        nodes={graphData.nodes}
         normCentrality={analysis.normCentrality}
         filters={filters}
         onFiltersChange={setFilters}
@@ -325,9 +282,7 @@ export default function App() {
         <GraphCanvas
           nodes={graphData.nodes}
           edges={graphData.edges}
-          communities={analysis.communities}
           normCentrality={analysis.normCentrality}
-          communityLabels={communityLabels}
           visibleNodeIds={visibleNodeIds}
           onNodeClick={setSelectedId}
           selectedId={selectedId}
@@ -336,12 +291,7 @@ export default function App() {
           selectedNode={selectedNode}
           edges={graphData.edges}
           nodes={graphData.nodes}
-          communities={analysis.communities}
           normCentrality={analysis.normCentrality}
-          communityLabels={communityLabels}
-          insights={insights}
-          insightsLoading={insightsLoading}
-          insightsError={insightsError}
           onNodeClick={setSelectedId}
         />
       </div>
